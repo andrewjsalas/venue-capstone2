@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-import Posts from '../models/Posts';
-import Users from '../models/Users';
+const Posts = require('../models/Posts');
+const Users = require('../models/Users');
 
 // Get all posts
-export const getAllPosts = async (req, res, next) => {
+const getAllPosts = async (req, res, next) => {
     let posts;
 
     try {
@@ -19,7 +19,7 @@ export const getAllPosts = async (req, res, next) => {
     return res.status(200).json({ posts });
 };
 
-export const addPost = async (req, res, next) => {
+const addPost = async (req, res, next) => {
     const { title, body, user, timestamp } = req.body;
 
     let existingUser;
@@ -56,7 +56,7 @@ export const addPost = async (req, res, next) => {
     return res.status(200).json({ post });
 }
 
-export const updatePost = async (req, res, next) => {
+const updatePost = async (req, res, next) => {
     const { title, body } = req.body;
 
     const postId = req.params.id;
@@ -78,7 +78,7 @@ export const updatePost = async (req, res, next) => {
     return res.status(200).json({ blog });
 };
 
-export const getPostById = async (req, res, next) => {
+const getPostById = async (req, res, next) => {
     const id = req.params.id;
 
     let post;
@@ -96,7 +96,7 @@ export const getPostById = async (req, res, next) => {
     return res.status(200).json({ post });
 };
 
-export const deletePost = async (req, res, next) => {
+const deletePost = async (req, res, next) => {
     let post;
 
     try {
@@ -114,7 +114,7 @@ export const deletePost = async (req, res, next) => {
     return res.status(200).json({ message: "Successfully deleted post."});
 }
 
-export const getUserById = async(req, res, next) => {
+const getUserById = async(req, res, next) => {
     let userPosts;
 
     try {
@@ -128,4 +128,13 @@ export const getUserById = async(req, res, next) => {
     }
 
     return res.status(200).json({ userPosts });
+};
+
+module.exports = {
+    getAllPosts,
+    addPost,
+    updatePost,
+    getPostById,
+    deletePost,
+    getUserById,
 };

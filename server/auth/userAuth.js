@@ -1,8 +1,7 @@
-import Users from "../models/Users.js";
-import User from "../models/Users.js";
+const Users = require('../models/Users.js');
 const bcrypt = require('bcrypt');
 
-export const getAllUsers = async (req, res, next) => {
+const getAllUsers = async (req, res, next) => {
     let users;
     try {
         users = await Users.find();
@@ -17,7 +16,7 @@ export const getAllUsers = async (req, res, next) => {
 };
 
 // Sign up user and throw error if user already exists
-export const signUp = async (req, res, next) => {
+const signUp = async (req, res, next) => {
     const { name, email, username, password } = req.body;
 
     let existingUser;
@@ -52,7 +51,7 @@ export const signUp = async (req, res, next) => {
 };
 
 // Very and sign in user. If not user found or incorrect password, throw error. 
-export const signIn = async (req, res, next) => {
+const signIn = async (req, res, next) => {
     const { email, password } = req.body;
 
     let existingUser;
@@ -75,3 +74,9 @@ export const signIn = async (req, res, next) => {
         .status(200)
         .json({ message: "Login successful!", user: existingUser });
 }
+
+module.exports = {
+    getAllUsers,
+    signUp,
+    signIn,
+};

@@ -1,12 +1,12 @@
 const express = require('express');
-import {
+const {
     getAllPosts,
     addPost,
     updatePost,
     getPostById,
     deletePost,
     getUserById,
-} from '../auth/postAuth';
+} = require('../auth/postAuth');
 
 const postRouter = express.Router();
 
@@ -17,4 +17,4 @@ postRouter.get('/:id', getPostById);
 postRouter.delete('/:id', deletePost);
 postRouter.get('/user/:id', getUserById);
 
-export default postRouter;
+module.exports = postRouter;
