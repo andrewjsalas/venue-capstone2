@@ -29,7 +29,7 @@ function UserPosts() {
                         key={index}
                         isUser={true}
                         title={post.title}
-                        body={body.title}
+                        body={post.body}
                         userName={user.name}
                     />
                 ))}

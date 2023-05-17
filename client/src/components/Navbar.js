@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../store";
 
-function Navbar () {
+function navBar () {
     const dispatch = useDispatch();
     const isLoggedIn = useSelector((state) => state.isLoggedIn);
     const [value, setValue] = useState();
@@ -12,7 +12,7 @@ function Navbar () {
     return (
         <Navbar>
             <Container>
-                <Navbar.Brand as={link} to='/'>
+                <Navbar.Brand as={Link} to='/'>
                     Venue
                 </Navbar.Brand>
                 {isLoggedIn && (
@@ -73,4 +73,4 @@ function Navbar () {
     )
 }
 
-export default Navbar;
+export default navBar;

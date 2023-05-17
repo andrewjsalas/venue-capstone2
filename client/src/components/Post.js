@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router";
 import axios from 'axios';
+import { Card, Button } from 'react-bootstrap';
 
 const Post = ({ title, body, userName, isUser, id }) => {
     const navigate = useNavigate();
