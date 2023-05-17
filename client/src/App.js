@@ -9,7 +9,8 @@ import Navbar from './components/Navbar';
 import Post from './components/Post';
 import Posts from './components/Posts';
 import UserPosts from './components/UserPosts';
-
+import PostDetail from './components/PostDetail';
+;
 
 function App() {
   const dispatch = useDispatch();
@@ -22,12 +23,15 @@ function App() {
 
   return (
     <>
+      <Navbar>
+        <Navbar />
+      </Navbar>
       <main>
         <Routes>
           {!isLoggedIn} ? (
             <>
               <Route path='/auth' element={<Auth /> } />
-              <Route parth='/' element={<Posts />} />
+              <Route path='/' element={<Posts />} />
             </>
           ) : (
             <>
