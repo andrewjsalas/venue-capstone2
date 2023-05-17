@@ -9,7 +9,7 @@ const getAllPosts = async (req, res, next) => {
     try {
         posts = await Posts.find().populate('user');
     } catch (error) {
-        console.log(error);
+        return next(error);
     }
 
     if (!posts) {
@@ -26,7 +26,7 @@ const addPost = async (req, res, next) => {
     try {
         existingUser = await Users.findById(user);
     } catch (error) {
-        return console.log(error);
+        return next(error);
     }
 
     if (!existingUser) {
@@ -68,7 +68,7 @@ const updatePost = async (req, res, next) => {
             body,
         });    
     } catch (error) {
-        return console.log(error);
+        return next(error);
     }
 
     if(!post) {
@@ -86,7 +86,7 @@ const getPostById = async (req, res, next) => {
     try {
         post = await Posts.findById(id);
     } catch (error) {
-        return console.log(error);
+        return next(error);
     }
 
     if (!post) {
@@ -104,7 +104,7 @@ const deletePost = async (req, res, next) => {
         await post.user.posts.pull(post);
         await post.user.save();
     } catch (error) {
-        console.log(error);
+        next(error);
     }
 
     if (!post) {
@@ -120,7 +120,7 @@ const getUserById = async(req, res, next) => {
     try {
         userPosts = await Users.findById(req.params.id).populate("posts");
     } catch (error) {
-        console.log(error);
+        next(error);
     }
 
     if (!userPosts) {

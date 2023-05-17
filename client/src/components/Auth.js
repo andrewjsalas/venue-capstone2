@@ -26,41 +26,71 @@ const Auth = () => {
     };
 
     const sendRequest = async (type = 'signin') => {
-        const res = await axios 
-            .post(`http://localhost:3001/server/user/${type}`, {
+        try {
+            const res = await axios.post(`http://localhost:3001/server/user/${type}`, {
                 name: inputs.name,
-                email: inputs.email,    
+                email: inputs.email,
                 password: inputs.password,
-            })
-            .catch((err) => console.log(err));
+            });
 
-            const data = await res.data;
-            return data;
+            return res.data;
+        } catch (error) {
+            console.error(error);
+            throw new Error('Request failed');
+        }
+        // const res = await axios 
+        //     .post(`http://localhost:3001/server/user/${type}`, {
+        //         name: inputs.name,
+        //         email: inputs.email,    
+        //         password: inputs.password,
+        //     })
+        //     .catch((err) => console.error(err));
+
+        //     const data = await res.data;
+        //     return data;
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (isSignup) {
-            sendRequest("signup")
-                .then((data) => localStorage.setItem("userId", data.user._id))
-                .then(() => {
-                    dispatch(authActions.signin());
-                })
-                .then(() => {
-                    navigate('/');
-                })
-                .then((data) => console.log(data));
-        } else {
-            sendRequest()
-                .then((data) => localStorage.setItem("userId", data.user._id))
-                .then(() => {
-                    dispatch(authActions.signin());
-                })
-                .then(() => {
-                    navigate('/');
-                })
-                .then((data) => console.log(data));
+
+        const handleAuthentication = (data) => {
+            localStorage.setItem("userId", data.user._id);
+            dispatch(authActions.signin());
+            navigate('/');
+            console.log(data);
+        };
+
+        const handleError = (error) => {
+            console.error(error);
         }
+
+        const request = isSignup ? sendRequest("signup") : sendRequest();
+
+        request
+            .then(handleAuthentication)
+            .catch(handleError);
+        
+        // if (isSignup) {
+        //     sendRequest("signup")
+        //         .then((data) => localStorage.setItem("userId", data.user._id))
+        //         .then(() => {
+        //             dispatch(authActions.signin());
+        //         })
+        //         .then(() => {
+        //             navigate('/');
+        //         })
+        //         .then((data) => console.error(data));
+        // } else {
+        //     sendRequest()
+        //         .then((data) => localStorage.setItem("userId", data.user._id))
+        //         .then(() => {
+        //             dispatch(authActions.signin());
+        //         })
+        //         .then(() => {
+        //             navigate('/');
+        //         })
+        //         .then((data) => console.error(data));
+        // }
     };
 
     return (

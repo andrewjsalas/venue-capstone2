@@ -6,7 +6,7 @@ const getAllUsers = async (req, res, next) => {
     try {
         users = await Users.find();
     } catch (error) {
-        return console.log(error);
+        return next(error);
     }
 
     if (!users) {
@@ -18,12 +18,15 @@ const getAllUsers = async (req, res, next) => {
 // Sign up user and throw error if user already exists
 const signUp = async (req, res, next) => {
     const { name, email, username, password } = req.body;
-
+    if(!username) {
+        return res.status(400).json({ message: 'Username is required'});
+    };
+    
     let existingUser;
     try {
         existingUser = await Users.findOne({ email });
     } catch (error) {
-        return console.log(error);
+        return next(error);
     }
 
     if (existingUser) {
@@ -32,8 +35,8 @@ const signUp = async (req, res, next) => {
             .json({ message: "User already exists. Login instead." });
     }
 
-    const hashedPassword = bcrypt.hashSync(password);
-    const user = new User({
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = new Users({
         name, 
         email, 
         username, 
@@ -44,7 +47,7 @@ const signUp = async (req, res, next) => {
     try {
         await user.save();
     } catch (error) {
-        return console.log(error);
+        return next(error);
     }
 
     return res.status(201).json({ user });
@@ -59,7 +62,7 @@ const signIn = async (req, res, next) => {
     try {
         existingUser = await Users.findOne({ email });
     } catch (error) {
-        return console.log(error);
+        return next(error);
     }
 
     if (!existingUser) {
@@ -68,7 +71,7 @@ const signIn = async (req, res, next) => {
 
     const isPasswordCorrect = bcrypt.compareSync(password, existingUser.password);
     if (!isPasswordCorrect) {
-        return res.status(404).json({ message: "Incorrect password. "});
+        return res.status(401).json({ message: "Incorrect password. "});
     }
     return res
         .status(200)
