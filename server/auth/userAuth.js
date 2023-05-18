@@ -17,11 +17,11 @@ const getAllUsers = async (req, res, next) => {
 
 // Sign up user and throw error if user already exists
 const signUp = async (req, res, next) => {
-    const { name, email, username, password } = req.body;
-    if(!username) {
-        return res.status(400).json({ message: 'Username is required'});
-    };
-    
+    const { name, email, password } = req.body;
+    // if(!username) {
+    //     return res.status(400).json({ message: 'Username is required'});
+    // };
+
     let existingUser;
     try {
         existingUser = await Users.findOne({ email });
@@ -39,7 +39,7 @@ const signUp = async (req, res, next) => {
     const user = new Users({
         name, 
         email, 
-        username, 
+        // username, 
         password: hashedPassword,
         posts: [],
     });
@@ -47,6 +47,7 @@ const signUp = async (req, res, next) => {
     try {
         await user.save();
     } catch (error) {
+        console.log(error);
         return next(error);
     }
 

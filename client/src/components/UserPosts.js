@@ -5,13 +5,16 @@ import Post from './Post';
 function UserPosts() {
     const [user, setUser] = useState();
     const id = localStorage.getItem('userId');
-    const sendRequest = async () => {
-        const res = await axios 
-            .get(`http://localhost:3001/server/post/user/${id}`)
-            .catch((err) => console.log(err));
 
-        const data = await res.data;
-        return data;
+    const sendRequest = async () => {
+        try {
+            const res = await axios.get(`http://localhost:3001/api/user/${id}`);
+            const data = res.data;
+            return data;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
     };
 
     useEffect(() => {
@@ -23,10 +26,10 @@ function UserPosts() {
             {" "}
             {user &&
                 user.posts &&
-                user.posts.map((post, index) => (
+                user.posts.map((post) => (
                     <Post 
+                        key={post._id}
                         id={post._id}
-                        key={index}
                         isUser={true}
                         title={post.title}
                         body={post.body}

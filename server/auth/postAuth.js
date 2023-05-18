@@ -75,7 +75,7 @@ const updatePost = async (req, res, next) => {
         return res.status(500).json({ message: "Unable to update post" });
     }
 
-    return res.status(200).json({ blog });
+    return res.status(200).json({ post });
 };
 
 const getPostById = async (req, res, next) => {
@@ -90,7 +90,7 @@ const getPostById = async (req, res, next) => {
     }
 
     if (!post) {
-        return res.status(5404).json({ message: "Unable to locate post."});
+        return res.status(404).json({ message: "Unable to locate post."});
     }
 
     return res.status(200).json({ post });
@@ -101,10 +101,10 @@ const deletePost = async (req, res, next) => {
 
     try {
         post = await Posts.findByIdAndRemove(req.params.id).populate('user');
-        await post.user.posts.pull(post);
+        await post.user.posts.filter((p) => p !== post);
         await post.user.save();
     } catch (error) {
-        next(error);
+        return next(error);
     }
 
     if (!post) {

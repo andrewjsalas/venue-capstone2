@@ -16,10 +16,10 @@ const postSchema = new Schema({
         ref: "Users",
         required: true,
     },
-    timestamp: {
-        type: String, 
-        default: Date.now()
-    },
+    // timestamp: {
+    //     type: Date, 
+    //     default: Date.now()
+    // },
 });
 
 module.exports = mongoose.model("Posts", postSchema);

@@ -18,24 +18,30 @@ const AddPost = () => {
         }));
     };
 
-    const sendRequest = async (type = "signin") => {
-        const res = await axios
-            .post("http://localhost:3001/server/post/add", {
+    const sendRequest = async () => {
+        try {
+            const res = await axios.post("http://localhost:3001/api/post/add", {
                 title: inputs.title,
                 body: inputs.body,
-                user: localStorage.getItem("userId"),
-            })
-            .catch((err) => console.log(err));
-
-        const data = await res.data;
-        return data;
+                user: localStorage.getItem("userId")
+            });
+            return res.data;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        sendRequest()
-            .then((data) => console.log(data))
-            .then(() => navigate("/"));
+        try {
+            const data = await sendRequest();
+            console.log(data);
+            navigate('/')
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
     };
 
     return (

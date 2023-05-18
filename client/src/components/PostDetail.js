@@ -19,10 +19,21 @@ function PostDetail () {
 
     const fetchDetails = async () => {
         const res = await axios
-            .get(`http://localhost:3001/server/post/${id}`)
+            .get(`http://localhost:3001/api/post/${id}`)
             .catch((err) => console.log(err));
 
         const data = res.data;
+        return data;
+    };
+
+    const sendRequest = async () => {
+        const res = await axios
+            .put(`http://localhost:3001/api/post/update/${id}`, {
+                title: inputs.title,
+                body: inputs.body,
+            })
+            .catch((err) => console.log(err));
+        const data = await res.data;
         return data;
     };
 
@@ -43,16 +54,6 @@ function PostDetail () {
         });
     }, [id]);
 
-    const sendRequest = async () => {
-        const res = await axios
-            .put(`http://localhost:3001/server/post/update/${id}`, {
-                title: inputs.title,
-                content: inputs.title,
-            })
-            .catch((err) => console.log(err));
-        const data = await res.data;
-        return data;
-    };
 
     return (
         <div>

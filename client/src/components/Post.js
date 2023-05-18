@@ -5,21 +5,36 @@ import { Card, Button } from 'react-bootstrap';
 
 const Post = ({ title, body, userName, isUser, id }) => {
     const navigate = useNavigate();
+
     const handleEdit = (event) => {
         navigate(`/myPosts/${id}`);
     };
 
     const deleteRequest = async () => {
-        const res = await axios
-            .delete(`http://localhost:3001/server/post/${id}`)
-            .catch((err) => console.log(err));
-
+        try {
+            const res = await axios.delete(`http://localhost:3001/api/post/${id}`);
             const data = res.data;
             return data;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+        // const res = await axios
+        //     .delete(`http://localhost:3001/api/post/${id}`)
+        //     .catch((err) => console.log(err));
+
+        //     const data = res.data;
+        //     return data;
     };
 
-    const handleDelete = () => {
-        deleteRequest().then(() => navigate('/'));
+    const handleDelete = async () => {
+        try {
+            await deleteRequest();
+            navigate('/');
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
     };
 
     return (

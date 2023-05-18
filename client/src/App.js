@@ -6,7 +6,6 @@ import { Route, Routes } from 'react-router';
 import AddPost from './components/AddPost';
 import Auth from './components/Auth';
 import Navbar from './components/Navbar';
-import Post from './components/Post';
 import Posts from './components/Posts';
 import UserPosts from './components/UserPosts';
 import PostDetail from './components/PostDetail';
@@ -17,7 +16,7 @@ function App() {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   useEffect(() => {
     if (localStorage.getItem("userId")) {
-      dispatch(authActions.siginin());
+      dispatch(authActions.signin());
     }
   }, [dispatch]);
 

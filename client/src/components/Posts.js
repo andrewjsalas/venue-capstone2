@@ -4,13 +4,22 @@ import Post from './Post';
 
 function Posts() {
     const [posts, setPosts] = useState();
-    const sendRequest = async () => {
-        const res = await axios 
-            .get('http://localhost:3001/server/post')
-            .catch((err) => console.log(err));
 
-        const data = await res.data;
-        return data;
+    const sendRequest = async () => {
+        try {
+            const res = await axios.get('http://localhost:3001/api/post');
+            const data = res.data;
+            return data;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+        // const res = await axios 
+        //     .get('http://localhost:3001/api/post')
+        //     .catch((err) => console.log(err));
+
+        // const data = await res.data;
+        // return data;
     };
     useEffect(() => {
         sendRequest().then((data) => setPosts(data.posts));

@@ -12,10 +12,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.use('/server/user', router);
-app.use('/server/post', postRouter);
+app.use('/api/user', router);
+app.use('/api/post', postRouter);
 
-mongoose.connect("mongodb://localhost:27017/venue_db", {
+mongoose.connect("mongodb://127.0.0.1:27017/venue_db", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
