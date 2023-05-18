@@ -14,12 +14,6 @@ function Posts() {
             console.log(error);
             throw error;
         }
-        // const res = await axios 
-        //     .get('http://localhost:3001/api/post')
-        //     .catch((err) => console.log(err));
-
-        // const data = await res.data;
-        // return data;
     };
     useEffect(() => {
         sendRequest().then((data) => setPosts(data.posts));
@@ -34,7 +28,6 @@ function Posts() {
                         isUser={localStorage.getItem("userId") === post.user._id}
                         title={post.title}
                         body={post.body}
-                        userName={post.user.name}
                     />
                 ))}
         </div>

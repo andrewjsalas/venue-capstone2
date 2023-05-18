@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Posts = require('../models/Posts');
 const Users = require('../models/Users');
+const { ObjectId } = mongoose.Types;
 
 // Get all posts
 const getAllPosts = async (req, res, next) => {
@@ -20,7 +21,7 @@ const getAllPosts = async (req, res, next) => {
 };
 
 const addPost = async (req, res, next) => {
-    const { title, body, user, timestamp } = req.body;
+    const { title, body, user } = req.body;
 
     let existingUser;
     try {
@@ -37,7 +38,6 @@ const addPost = async (req, res, next) => {
         title, 
         body, 
         user,
-        timestamp,
     });
 
     try {
@@ -80,6 +80,10 @@ const updatePost = async (req, res, next) => {
 
 const getPostById = async (req, res, next) => {
     const id = req.params.id;
+
+    if (!ObjectId.isValid(id)) {
+        return res.status(400).json({ message: "Invalid post ID." });
+    }
 
     let post;
 

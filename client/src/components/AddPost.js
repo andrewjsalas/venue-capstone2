@@ -19,11 +19,13 @@ const AddPost = () => {
     };
 
     const sendRequest = async () => {
+        const userId = localStorage.getItem("userId");
+
         try {
             const res = await axios.post("http://localhost:3001/api/post/add", {
                 title: inputs.title,
                 body: inputs.body,
-                user: localStorage.getItem("userId")
+                user: userId
             });
             return res.data;
         } catch (error) {
@@ -35,7 +37,11 @@ const AddPost = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const data = await sendRequest();
+            const data = await sendRequest({
+                title: inputs.title,
+                body: inputs.body,
+                user: localStorage.getItem("userId")
+            });
             console.log(data);
             navigate('/')
         } catch (error) {

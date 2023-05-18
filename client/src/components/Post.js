@@ -19,12 +19,6 @@ const Post = ({ title, body, userName, isUser, id }) => {
             console.log(error);
             throw error;
         }
-        // const res = await axios
-        //     .delete(`http://localhost:3001/api/post/${id}`)
-        //     .catch((err) => console.log(err));
-
-        //     const data = res.data;
-        //     return data;
     };
 
     const handleDelete = async () => {
