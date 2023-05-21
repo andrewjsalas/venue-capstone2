@@ -1,0 +1,46 @@
+[
+    {
+        "name": "metalguy123",
+        "email": "metalguy@email.com",
+        "password": "dio123",
+        "posts": [
+            {
+                "title": "Dio Documentary",
+                "body": "Anyone seen the new Dio documentary? It looks awesome!"
+            }
+        ]
+    },
+    {
+        "name": "judapriest4", 
+        "email": "myemail@email.com",
+        "password": "britishsteel123",
+        "posts": [
+            {
+                "title": "New Sleep Token",
+                "body": "Sleep Token dropping new music?! Can't wait!"
+            }
+        ]
+    },
+    {
+        "name": "ZedLeppelin", 
+        "email": "TheRover222@gmail.com",
+        "password": "jimmypage333",
+        "posts": [
+            {
+                "title": "The state of Rock and Metal",
+                "body": "I believe we are living in the new golden era of rock and metal music! More music than ever is being released, and don't even get me started on the New Wave of Trash Metal!"
+            }
+        ]
+    },
+    {
+        "name": "SoundGuySteve",
+        "email": "iLikeTurtles@gmail.com",
+        "password": "pickofdestiny999",
+        "posts": [
+            {
+                "title": "Meyer Sound and Metallica",
+                "body": "I had no idea that Meyer Sound CUSTOM BUILT Metallica their sound rig for their tours. Honestly, was one of the greatest sounding shows I've EVER been too, not to mention Metallica absolutely SHREDDED!\\m/"
+            }
+        ]
+    }
+]

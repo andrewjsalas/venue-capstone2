@@ -18,9 +18,6 @@ const getAllUsers = async (req, res, next) => {
 // Sign up user and throw error if user already exists
 const signUp = async (req, res, next) => {
     const { name, email, password } = req.body;
-    // if(!username) {
-    //     return res.status(400).json({ message: 'Username is required'});
-    // };
 
     let existingUser;
     try {
@@ -47,7 +44,7 @@ const signUp = async (req, res, next) => {
     try {
         await user.save();
     } catch (error) {
-        console.log(error);
+        console.log("Error is in signUp userAuth.js",error);
         return next(error);
     }
 

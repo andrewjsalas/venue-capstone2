@@ -50,6 +50,7 @@ const addPost = async (req, res, next) => {
         await session.commitTransaction();
         await session.endSession();
     } catch (error) {
+        console.log("Error is in addPost postAuth.js",error);
         return res.status(500).json({ message: error });
     }
 
@@ -59,7 +60,7 @@ const addPost = async (req, res, next) => {
 const updatePost = async (req, res, next) => {
     const { title, body } = req.body;
 
-    const postId = req.params.id;
+    const postId = req.params._id;
     let post;
 
     try {
@@ -79,7 +80,7 @@ const updatePost = async (req, res, next) => {
 };
 
 const getPostById = async (req, res, next) => {
-    const id = req.params.id;
+    const id = req.params._id;
 
     if (!ObjectId.isValid(id)) {
         return res.status(400).json({ message: "Invalid post ID." });
@@ -104,8 +105,8 @@ const deletePost = async (req, res, next) => {
     let post;
 
     try {
-        post = await Posts.findByIdAndRemove(req.params.id).populate('user');
-        await post.user.posts.filter((p) => p !== post);
+        post = await Posts.findByIdAndRemove(req.params._id).populate('user');
+        await post.user.posts.pull(post);
         await post.user.save();
     } catch (error) {
         return next(error);
@@ -122,8 +123,9 @@ const getUserById = async(req, res, next) => {
     let userPosts;
 
     try {
-        userPosts = await Users.findById(req.params.id).populate("posts");
+        userPosts = await Users.findById(req.params._id).populate("posts");
     } catch (error) {
+        console.log("Error is in getUserById postAuth.js", error);
         next(error);
     }
 

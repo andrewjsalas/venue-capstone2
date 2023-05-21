@@ -29,7 +29,7 @@ const AddPost = () => {
             });
             return res.data;
         } catch (error) {
-            console.log(error);
+            console.log("Error is in sendRequest addPost.js" ,error);
             throw error;
         }
     };
@@ -45,7 +45,7 @@ const AddPost = () => {
             console.log(data);
             navigate('/')
         } catch (error) {
-            console.log(error);
+            console.log("Error is in handleSubmit addPost.js", error);
             throw error;
         }
     };

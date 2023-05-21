@@ -20,11 +20,13 @@ const userSchema = new Schema({
         required: true,
         minLength: 6,
     },
-    posts: [{
-        type: mongoose.Types.ObjectId,
-        ref: "Posts",
-        required: true,
-    }],
+    posts: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "Posts",
+            required: true,
+        }
+    ],
 });
 
 module.exports = mongoose.model("Users", userSchema);
