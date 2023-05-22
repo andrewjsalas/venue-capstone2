@@ -19,15 +19,4 @@ const postSchema = new Schema({
     },
 });
 
-// postSchema.pre("save", function(next) {
-//     if (this.title.length > 0) {
-//         this.title = filter.clean(this.title);
-//     }
-
-//     if (this.content.length > 0) {
-//         this.content = filter.clean(this.content);
-//     }
-//     next();
-// });
-
 module.exports = mongoose.model("posts", postSchema);

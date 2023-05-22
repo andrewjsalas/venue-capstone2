@@ -24,13 +24,13 @@ const getAllPosts = async (req, res, next) => {
 const addPost = async (req, res, next) => {
     const { title, body, users } = req.body;
 
-    if (!(title && content)) {
-        throw new Error("All inputs reqquired");
+    if (!(title && body)) {
+        throw new Error("All inputs required");
     }
 
     let existingUser;
     try {
-        existingUser = await Users.findById(user);
+        existingUser = await Users.findById(users);
     } catch (error) {
         return next(error);
     }
