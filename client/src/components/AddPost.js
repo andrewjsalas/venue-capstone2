@@ -25,7 +25,7 @@ const AddPost = () => {
             const res = await axios.post("http://localhost:3001/api/post/add", {
                 title: inputs.title,
                 body: inputs.body,
-                user: userId
+                poster: userId,
             });
             return res.data;
         } catch (error) {
@@ -40,10 +40,10 @@ const AddPost = () => {
             const data = await sendRequest({
                 title: inputs.title,
                 body: inputs.body,
-                user: localStorage.getItem("userId")
+                user: localStorage.getItem("userId"),
             });
             console.log(data);
-            navigate('/')
+            navigate('/');
         } catch (error) {
             console.log("Error is in handleSubmit addPost.js", error);
             throw error;

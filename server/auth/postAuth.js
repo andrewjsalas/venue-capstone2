@@ -22,10 +22,10 @@ const getAllPosts = async (req, res, next) => {
 };
 
 const addPost = async (req, res, next) => {
-    const { title, body, users } = req.body;
+    const { title, body, userId } = req.body;
 
     if (!(title && content)) {
-        throw new Error("All inputs reqquired");
+        throw new Error("All inputs required");
     }
 
     let existingUser;
@@ -39,10 +39,10 @@ const addPost = async (req, res, next) => {
         return res.status(400).json({ message: "Unable to find user by this ID "});
     }
 
-    const post = new Posts({
+    const post = await Posts.create({
         title, 
         body, 
-        users,
+        poster: userId,
     });
 
     try {
@@ -85,19 +85,17 @@ const updatePost = async (req, res, next) => {
 };
 
 const getPostById = async (req, res, next) => {
-    const id = req.params._id;
+    const postId = req.params._id;
+    const { userId } = req.body;
 
-    if (!ObjectId.isValid(id)) {
-        return res.status(400).json({ message: "Invalid post ID." });
+    if (!mongoose.Types.ObjectId.isValid(postId)) {
+        console.log("Error is in getPostyById : postAuth.js");
+        throw new Error("Post does not exist");
     }
 
-    let post;
-
-    try {
-        post = await Posts.findById(id);
-    } catch (error) {
-        return next(error);
-    }
+    const post = await Posts.findById(postId)
+        .populate('poster')
+        .lean();
 
     if (!post) {
         return res.status(404).json({ message: "Unable to locate post."});

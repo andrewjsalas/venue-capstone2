@@ -1,6 +1,20 @@
 const Users = require('../models/Users.js');
 const bcrypt = require('bcrypt');
 
+const getUserDict = (token, user) => {
+    return {
+        token, 
+        name: user.name,
+        userId: user._id,
+    };
+};
+
+const buildToken = (user) => {
+    return {
+        userId: user._id,
+    };
+};
+
 const getAllUsers = async (req, res, next) => {
     let users;
     try {
@@ -40,7 +54,6 @@ const signUp = async (req, res, next) => {
     const user = new Users({
         name, 
         email, 
-        // username, 
         password: hashedPassword,
         posts: [],
     });
@@ -51,6 +64,8 @@ const signUp = async (req, res, next) => {
         console.log("Error is in signUp userAuth.js",error);
         return next(error);
     }
+    const token = buildToken(user);
+    const userDict = getUserDict(token, user);
 
     return res.status(201).json({ user });
 };
@@ -75,6 +90,10 @@ const signIn = async (req, res, next) => {
     if (!isPasswordCorrect) {
         return res.status(401).json({ message: "Incorrect password. "});
     }
+
+    const token = buildToken(existingUser);
+    const userDict = getUserDict(token, existingUser);
+
     return res
         .status(200)
         .json({ message: "Login successful!", user: existingUser });

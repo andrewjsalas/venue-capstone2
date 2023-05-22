@@ -12,7 +12,7 @@ const postSchema = new Schema({
         required: true,
         maxLength: [8000, "Music be no more than 8,000 characters"]
     },
-    user: {
+    poster: {
         type: mongoose.Types.ObjectId,
         ref: "users",
         required: true,
