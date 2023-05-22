@@ -8,6 +8,7 @@ const getAllPosts = async (req, res, next) => {
     let posts;
 
     try {
+        const postId = req.params._id;
         posts = await Posts.find().populate('user');
     } catch (error) {
         return next(error);
@@ -21,7 +22,11 @@ const getAllPosts = async (req, res, next) => {
 };
 
 const addPost = async (req, res, next) => {
-    const { title, body, user } = req.body;
+    const { title, body, users } = req.body;
+
+    if (!(title && content)) {
+        throw new Error("All inputs reqquired");
+    }
 
     let existingUser;
     try {
@@ -37,7 +42,7 @@ const addPost = async (req, res, next) => {
     const post = new Posts({
         title, 
         body, 
-        user,
+        users,
     });
 
     try {

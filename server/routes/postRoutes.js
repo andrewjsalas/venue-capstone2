@@ -1,4 +1,5 @@
 const express = require('express');
+const postRouter = express.Router();
 const {
     getAllPosts,
     addPost,
@@ -7,8 +8,6 @@ const {
     deletePost,
     getUserById,
 } = require('../auth/postAuth');
-
-const postRouter = express.Router();
 
 postRouter.get('/', getAllPosts);
 postRouter.post('/add', addPost);

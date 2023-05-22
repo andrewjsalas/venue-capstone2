@@ -19,6 +19,10 @@ const getAllUsers = async (req, res, next) => {
 const signUp = async (req, res, next) => {
     const { name, email, password } = req.body;
 
+    if(!(name && email && password)) {
+        throw new Error("All inputs required");
+    }
+
     let existingUser;
     try {
         existingUser = await Users.findOne({ email });
