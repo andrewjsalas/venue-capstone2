@@ -28,6 +28,7 @@ const AddPost = () => {
                 body: inputs.body,
                 user: userId
             });
+            
             return res.data;
         } catch (error) {
             console.log("Error is in sendRequest addPost.js" ,error);
@@ -37,7 +38,7 @@ const AddPost = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        
+
         try {
             const data = await sendRequest({
                 title: inputs.title,

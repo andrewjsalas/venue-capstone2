@@ -8,7 +8,6 @@ const getAllPosts = async (req, res, next) => {
     let posts;
 
     try {
-        const postId = req.params._id;
         posts = await Posts.find().populate('user');
     } catch (error) {
         return next(error);
@@ -22,44 +21,27 @@ const getAllPosts = async (req, res, next) => {
 };
 
 const addPost = async (req, res, next) => {
-    const { title, body, users } = req.body;
-
-    if (!(title && body)) {
-        throw new Error("All inputs required");
-    }
-
-    let existingUser;
     try {
-        existingUser = await Users.findById(users);
+        const { title, body } = req.body;
+
+        const newPost = new Posts({
+            title, 
+            body,
+            user: req.user._id
+        });
+
+        await newPost.save();
+
+        const foundUser = await Users.findById(req.user._id);
+        foundUser.posts.push(newPost._id);
+        await foundUser.save();
+
+        return res.status(200).json({ newPost });
+        
     } catch (error) {
-        return next(error);
-    }
-
-    if (!existingUser) {
-        return res.status(400).json({ message: "Unable to find user by this ID "});
-    }
-
-    const post = new Posts({
-        title, 
-        body, 
-        users,
-    });
-
-    try {
-        const session = await mongoose.startSession();
-
-        session.startTransaction();
-        await post.save({ session });
-        existingUser.posts.push(post);
-        await existingUser.save({ session})
-        await session.commitTransaction();
-        await session.endSession();
-    } catch (error) {
-        console.log("Error is in addPost postAuth.js",error);
+        console.log("Error is in addPost.js postAuth.js", error);
         return res.status(500).json({ message: error });
     }
-
-    return res.status(200).json({ post });
 }
 
 const updatePost = async (req, res, next) => {
@@ -124,28 +106,10 @@ const deletePost = async (req, res, next) => {
     return res.status(200).json({ message: "Successfully deleted post."});
 }
 
-const getUserById = async(req, res, next) => {
-    let userPosts;
-
-    try {
-        userPosts = await Users.findById(req.params._id).populate("posts");
-    } catch (error) {
-        console.log("Error is in getUserById postAuth.js", error);
-        next(error);
-    }
-
-    if (!userPosts) {
-        return res.status(400).json({ message: "Unable to find posts." });
-    }
-
-    return res.status(200).json({ userPosts });
-};
-
 module.exports = {
     getAllPosts,
     addPost,
     updatePost,
     getPostById,
     deletePost,
-    getUserById,
 };

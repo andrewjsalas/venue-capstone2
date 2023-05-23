@@ -1,4 +1,5 @@
 const Users = require('../models/Users.js');
+const Posts = require('../models/Posts.js');
 const bcrypt = require('bcrypt');
 
 const getAllUsers = async (req, res, next) => {
@@ -40,7 +41,6 @@ const signUp = async (req, res, next) => {
     const user = new Users({
         name, 
         email, 
-        // username, 
         password: hashedPassword,
         posts: [],
     });
@@ -80,8 +80,26 @@ const signIn = async (req, res, next) => {
         .json({ message: "Login successful!", user: existingUser });
 }
 
+const getUserById = async (req, res, next) => {
+    let userPosts;
+
+    try {
+        userPosts = await Users.findById(req.params._id).populate("posts");
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+
+    if (!userPosts) {
+        return res.status(400).json({ message: "Unable to find posts." });
+    }
+
+    return res.status(200).json({ user : userPosts });
+};
+
 module.exports = {
     getAllUsers,
+    getUserById,
     signUp,
     signIn,
 };

@@ -23,8 +23,8 @@ const userSchema = new Schema({
     posts: [
         {
             type: mongoose.Types.ObjectId,
-            ref: "Posts",
-            required: true,
+            ref: "posts",
+            required: false,
         }
     ],
 });

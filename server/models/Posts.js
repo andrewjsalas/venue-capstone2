@@ -15,7 +15,7 @@ const postSchema = new Schema({
     user: {
         type: mongoose.Types.ObjectId,
         ref: "users",
-        required: true,
+        required: false,
     },
 });
 

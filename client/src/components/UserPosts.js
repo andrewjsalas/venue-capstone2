@@ -32,6 +32,7 @@ function UserPosts() {
                         id={post._id}
                         isUser={true}
                         title={post.title}
+                        body={post.body}
                     />
                 ))}
         </div>

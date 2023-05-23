@@ -1,6 +1,7 @@
 const express = require('express');
 const {
-    getAllUsers, 
+    getAllUsers,
+    getUserById, 
     signUp,
     signIn,
 } = require('../auth/userAuth');
@@ -8,6 +9,7 @@ const {
 const router = express.Router();
 
 router.get("/", getAllUsers);
+router.get('/:id', getUserById);
 router.post('/signup', signUp);
 router.post('/signin', signIn);
 
