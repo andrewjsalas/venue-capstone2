@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../store";
 
-function navBar () {
+function NavBar () {
     const dispatch = useDispatch();
     const isLoggedIn = useSelector((state) => state.isLoggedIn);
     const [value, setValue] = useState();
@@ -73,4 +73,4 @@ function navBar () {
     )
 }
 
-export default navBar;
+export default NavBar;
