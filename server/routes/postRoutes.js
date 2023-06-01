@@ -8,7 +8,7 @@ const {
     deletePost,
 } = require('../auth/postAuth');
 
-postRouter.get('/', getAllPosts);
+postRouter.get('/all', getAllPosts);
 postRouter.post('/add', addPost);
 postRouter.put('/update/:id', updatePost);
 postRouter.get('/:id', getPostById);

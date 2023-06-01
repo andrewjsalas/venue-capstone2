@@ -5,7 +5,11 @@ import { authActions } from "../store";
 import { useNavigate } from "react-router";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card'
 
+// Authentication for new and returning users
 const Auth = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -25,6 +29,7 @@ const Auth = () => {
         }));
     };
 
+    // Retrieves required user information from mongodb 
     const sendRequest = async (type = 'signin') => {
         try {
             const res = await axios.post(`http://localhost:3001/api/user/${type}`, {
@@ -35,7 +40,7 @@ const Auth = () => {
 
             return res.data;
         } catch (error) {
-            console.error(error);
+            console.error(error.response.data);
             throw new Error('Request failed');
         }
     }
@@ -63,52 +68,64 @@ const Auth = () => {
     };
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <div>
-                <h3>{isSignup ? 'Sign Up' : 'Sign In'}</h3>
-            </div>
-            {isSignup && (
-                <Form.Group className="mb-3">
-                    <Form.Control
-                        name="name"
-                        onChange={handleChange}
-                        type="text"
-                        placeholder="Name"
-                        value={inputs.name} />
-                </Form.Group>
-            )}
+        <>
+            <Row className="mt-5">
+                <Col sm={6} className="text-center">
+                    <h1 className="">VENUE</h1>
+                </Col>
+                <Col sm={6}>
+                    <Card className="p-4 shadow w-75">
+                        <Form onSubmit={handleSubmit}>
+                            <div>
+                                <h3>{isSignup ? 'Sign Up' : 'Sign In'}</h3>
+                            </div>
+                            {isSignup && (
+                                <Form.Group className="mb-3">
+                                    <Form.Control
+                                        name="name"
+                                        onChange={handleChange}
+                                        type="text"
+                                        placeholder="Name"
+                                        value={inputs.name} />
+                                </Form.Group>
+                            )}
 
 
-            <Form.Group className="mb-3">
-                <Form.Control
-                    name="email"
-                    onChange={handleChange} 
-                    type="email" 
-                    placeholder="Email"
-                    value={inputs.email} 
-                />
-            </Form.Group>
-            
-            <Form.Group className="mb-3">
-                <Form.Control 
-                    name="password"
-                    onChange={handleChange}
-                    type="password" 
-                    placeholder="Password"
-                    value={inputs.password} 
-                />
-            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Control
+                                    name="email"
+                                    onChange={handleChange} 
+                                    type="email" 
+                                    placeholder="Email"
+                                    value={inputs.email} 
+                                />
+                            </Form.Group>
+                            
+                            <Form.Group className="mb-3">
+                                <Form.Control 
+                                    name="password"
+                                    onChange={handleChange}
+                                    type="password" 
+                                    placeholder="Password"
+                                    value={inputs.password} 
+                                />
+                            </Form.Group>
 
-            <Button variant="primary" type="submit">
-                {isSignup ? 'Create Account' : 'Sign In'}
-            </Button>
-            <Button
-                onClick={() => setIsSignup(!isSignup)}
-                variant="primary"
-            >
-                {isSignup ? 'Have an account? Sign In': 'New user? Sign Up'}
-            </Button>
-        </Form>
+                            <Button className="d-flex mb-3 shadow" variant="dark" type="submit">
+                                {isSignup ? 'Create Account' : 'Sign In'}
+                            </Button>
+                            <Button
+                                className="shadow"
+                                onClick={() => setIsSignup(!isSignup)}
+                                variant="light"
+                            >
+                                {isSignup ? 'Have an account? Sign In': 'New user? Sign Up'}
+                            </Button>
+                        </Form>
+                    </Card>
+                </Col>    
+            </Row>  
+        </>
     );
 };
 

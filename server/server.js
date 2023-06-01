@@ -12,6 +12,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
+const secretKey = process.env.SECRET_KEY;
+
 app.use('/api/user', userRouter);
 app.use('/api/post', postRouter);
 

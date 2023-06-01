@@ -5,19 +5,19 @@ const { ObjectId } = mongoose.Types;
 
 // Get all posts
 const getAllPosts = async (req, res, next) => {
-    let posts;
-
     try {
-        posts = await Posts.find().populate('user');
+        const userId = req.user._id;
+        const posts = await Posts.find({ user: userId }).populate('user');
+
+        if (!posts) {
+            return res.status(404).json({ message: "No posts found" });
+        }
+
+        return res.status(200).json({ posts });
     } catch (error) {
+        console.log("error is in getAllPosts", error);
         return next(error);
     }
-
-    if (!posts) {
-        return res.status(404).json({ message: "No posts found"});
-    }
-
-    return res.status(200).json({ posts });
 };
 
 const addPost = async (req, res, next) => {
