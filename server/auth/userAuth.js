@@ -55,7 +55,7 @@ const signUp = async (req, res, next) => {
     return res.status(201).json({ user });
 };
 
-// Very and sign in user. If not user found or incorrect password, throw error. 
+// Verify and sign in user. If not user found or incorrect password, throw error. 
 const signIn = async (req, res, next) => {
     const { email, password } = req.body;
 

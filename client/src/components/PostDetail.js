@@ -16,35 +16,35 @@ function PostDetail () {
             [event.target.name]: event.target.value,
         }));
     };
-
-    const fetchDetails = async () => {
-        const res = await axios
-            .get(`http://localhost:3001/api/post/${id}`)
-            .catch((err) => console.log(err));
-
-        const data = res.data;
-        return data;
-    };
-
+    
     const sendRequest = async () => {
         const res = await axios
-            .put(`http://localhost:3001/api/post/update/${id}`, {
-                title: inputs.title,
-                body: inputs.body,
+        .put(`http://localhost:3001/api/post/update/${id}`, {
+            title: inputs.title,
+            body: inputs.body,
             })
             .catch((err) => console.log(err));
-        const data = await res.data;
-        return data;
-    };
+            const data = await res.data;
+            return data;
+        };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         sendRequest()
-            .then((data) => console.log(data))
-            .then(() => navigate('./myPosts'));
+        .then((data) => console.log(data))
+        .then(() => navigate('./myPosts'));
     };
-
+    
     useEffect(() => {
+        const fetchDetails = async () => {
+            const res = await axios
+                .get(`http://localhost:3001/api/post/${id}`)
+                .catch((err) => console.log(err));
+    
+            const data = res.data;
+            return data;
+        };
+        
         fetchDetails().then((data) => {
             setPost(data);
             setInputs({
