@@ -69,7 +69,6 @@ const Auth = () => {
             </div>
             {isSignup && (
                 <Form.Group className="mb-3">
-                    <Form.Label>Name</Form.Label>
                     <Form.Control
                         name="name"
                         onChange={handleChange}
@@ -81,7 +80,6 @@ const Auth = () => {
 
 
             <Form.Group className="mb-3">
-                <Form.Label>Email</Form.Label>
                 <Form.Control
                     name="email"
                     onChange={handleChange} 
@@ -92,7 +90,6 @@ const Auth = () => {
             </Form.Group>
             
             <Form.Group className="mb-3">
-                <Form.Label>Password</Form.Label>
                 <Form.Control 
                     name="password"
                     onChange={handleChange}

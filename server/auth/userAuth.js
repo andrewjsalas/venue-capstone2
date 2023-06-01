@@ -75,6 +75,7 @@ const signIn = async (req, res, next) => {
     if (!isPasswordCorrect) {
         return res.status(401).json({ message: "Incorrect password. "});
     }
+
     return res
         .status(200)
         .json({ message: "Login successful!", user: existingUser });

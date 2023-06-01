@@ -9,7 +9,8 @@ import Navbar from './components/Navbar';
 import Posts from './components/Posts';
 import UserPosts from './components/UserPosts';
 import PostDetail from './components/PostDetail';
-;
+// import LandingPage from './components/LandingPage';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -22,24 +23,21 @@ function App() {
 
   return (
     <>
-      <Navbar>
-        <Navbar />
-      </Navbar>
       <main>
         <Routes>
-          {!isLoggedIn} ? (
+          {!isLoggedIn ? (
             <>
               <Route path='/auth' element={<Auth /> } />
-              <Route path='/' element={<Posts />} />
             </>
           ) : (
             <>
+              <Navbar />
               <Route path='/' element={<Posts /> } />
               <Route path='/posts/add' element={<AddPost /> } />
               <Route path='/myPosts' element={<UserPosts /> } />
               <Route path='/myPosts/:id' element={<PostDetail /> } />
             </>
-          )
+          )}
         </Routes>
       </main>
     </>
