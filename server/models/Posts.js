@@ -10,7 +10,7 @@ const postSchema = new Schema({
     body: {
         type: String,
         required: true,
-        maxLength: [8000, "Music be no more than 8,000 characters"]
+        maxLength: [8000, "Must be no more than 8,000 characters"]
     },
     user: {
         type: mongoose.Types.ObjectId,
