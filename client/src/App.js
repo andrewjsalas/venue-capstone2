@@ -30,11 +30,11 @@ function App() {
         <Routes>
           {!isLoggedIn ? (
             <>
-              <Route path='/auth' element={<Auth /> } />
+              <Route path='/' element={<Auth /> } />
             </>
           ) : (
             <>
-              <Route path='/' element={<Feed /> } />
+              <Route path='/all' element={<Feed /> } />
               <Route path='/posts/add' element={<AddPost /> } />
               <Route path='/myPosts' element={<UserPosts /> } />
               <Route path='/myPosts/:id' element={<PostDetail /> } />

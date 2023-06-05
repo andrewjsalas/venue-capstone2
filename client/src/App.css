@@ -1,0 +1,25 @@
+* {
+    box-sizing: border-box;
+}
+
+/* Auth page styles */
+.auth-container {
+    height: 100vh;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.logo-column {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+}
+
+.logo-image {
+    max-height: 100%;
+    width: auto;
+    max-height: 100%;
+    max-width: 100%;
+}
+
