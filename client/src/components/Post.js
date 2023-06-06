@@ -7,7 +7,7 @@ const Post = ({ title, body, userName, isUser, id }) => {
     const navigate = useNavigate();
 
     const handleEdit = (event) => {
-        navigate(`/myPosts/${id}`);
+        navigate(`/myposts/${id}`);
     };
 
     const deleteRequest = async () => {

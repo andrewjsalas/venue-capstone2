@@ -7,10 +7,8 @@ const { ObjectId } = mongoose.Types;
 // Get all posts
 const getAllPosts = async (req, res, next) => {
     try {
-        // console.log("getAllPosts request object ", req.query);
-        // const userId = req.user._id;
-        const posts = await Posts.find({ });
-
+        const posts = await Posts.find({});
+        
         if (!posts) {
             return res.status(404).json({ message: "No posts found" });
         }
@@ -24,7 +22,7 @@ const getAllPosts = async (req, res, next) => {
 
 const addPost = async (req, res, next) => {
     try {
-        const { title, body } = req.body;
+        const { title, body, user } = req.body;
 
         const newPost = new Posts({
             title, 

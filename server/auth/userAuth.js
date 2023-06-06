@@ -82,20 +82,52 @@ const signIn = async (req, res, next) => {
 }
 
 const getUserById = async (req, res, next) => {
-    let userPosts;
+    let user;
 
     try {
-        userPosts = await Users.findById(req.params._id).populate("posts");
+        user = await Users.findById(req.query._id);
     } catch (error) {
         console.log(error);
         next(error);
     }
 
-    if (!userPosts) {
-        return res.status(400).json({ message: "Unable to find posts." });
+    if (!user) {
+        console.log("User object in the !user ", user);
+        return res.status(400).json({ message: "Unable to find user. "});
     }
 
-    return res.status(200).json({ user : userPosts });
+    return res.status(200).json({ user });
+};
+
+const getUserPosts = async (req, res, next) => {
+    const userId = req.query._id;
+
+    try {
+        const user = await Users.findById(userId).populate('posts');
+        if (!user) {
+            return res.status(400).json({ message: 'User not found' });
+        }
+
+        const posts = user.posts;
+        return res.json({ posts });
+        next();
+    } catch (error) {
+        return res.status(500).json({ message: `Error retrieving user posts: ${error.message}`});
+    }
+
+    // try {
+    //     const id = req.params._id;
+    //     const posts = await Posts.find({ _id: id });
+        
+    //     if (!posts) {
+    //         return res.status(404).json({ message: "No posts found" });
+    //     }
+
+    //     return res.status(200).json({posts});
+    // } catch (error) {
+    //     console.log("error is in getAllPosts", error);
+    //     return next(error);
+    // }
 };
 
 module.exports = {
@@ -103,4 +135,5 @@ module.exports = {
     getUserById,
     signUp,
     signIn,
+    getUserPosts,
 };

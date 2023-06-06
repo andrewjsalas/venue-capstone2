@@ -3,49 +3,46 @@ import axios from 'axios';
 import Post from './Post';
 
 function UserPosts() {
-    const [user, setUser] = useState();
+    const [userPosts, setUserPosts] = useState([]);
     const id = localStorage.getItem('userId');
 
-    const sendRequest = useCallback(async () => {
+    const fetchUserPosts = useCallback(async () => {
         try {
-            const res = await axios.get(`http://localhost:3001/api/user/${id}`);
-            const data = res.data;
-            return data;
+            const res = await axios.get(`http://localhost:3001/api/user/myposts`, {
+                params: {
+                    _id: id
+                }
+            });
+            const { posts } = res.data;
+            console.log("Posts in the UserPosts component: ", posts)
+            setUserPosts(posts);
+
         } catch (error) {
-            console.log(error);
-            throw error;
+            console.log('Error fetching user posts', error);
         }
     }, [id]);
 
     useEffect(() => {
-        const fetchData = async() => {
-            try {
-                const data = await sendRequest();
-                setUser(data.user);
-            } catch (error) {
-                console.log('Error fetching user data', error);
-            }
-        };
-
-        fetchData();
-    }, [sendRequest]);
+        fetchUserPosts();
+    }, [fetchUserPosts]);
 
     return (
         <div>
-            {" "}
-            {user &&
-                user.posts &&
-                user.posts.map((post) => (
-                    <Post 
-                        key={post._id}
-                        id={post._id}
-                        isUser={true}
-                        title={post.title}
-                        body={post.body}
-                    />
-                ))}
+            {userPosts.length > 0 ? (
+              userPosts.map((post) => (
+                <Post
+                  key={post._id}
+                  id={post._id}
+                  isUser={true}
+                  title={post.title}
+                  body={post.body}
+                />
+              ))
+            ) : (
+              <p>No posts found.</p>
+            )}
         </div>
-    )
+    );
 }
 
 export default UserPosts;

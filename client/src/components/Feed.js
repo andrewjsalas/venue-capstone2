@@ -4,21 +4,6 @@ import Card from 'react-bootstrap/Card';
 import Post from './Post'
 
 function Feed() {
-    // const [posts, setPosts] = useState([]);
-
-    // useEffect(() => {
-    //     const fetchPosts = async () => {
-    //         try {
-    //             const response = await axios.get('http://localhost:3001/api/post/all');
-    //             setPosts(response.data.posts);
-    //         } catch (error) {
-    //             console.error(error);
-    //         }
-    //     };
-
-    //     fetchPosts();
-    // }, [])
-
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
@@ -41,12 +26,13 @@ function Feed() {
             <h4>No posts to display</h4>
           ) : (
             posts.map((post) => (
-              <Post
-                key={post._id}
-                id={post._id}
-                title={post.title}
-                body={post.body}
-              />
+              <Card key={post._id} className='mb-3'>
+                <Card.Body>
+                  <Card.Title>{post.title}</Card.Title>
+                  <Card.Subtitle>{post.name}</Card.Subtitle>
+                  <Card.Text>{post.body}</Card.Text>
+                </Card.Body>
+              </Card>
             ))
           )}
         </div>

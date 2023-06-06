@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from './store';
-import { Route, Routes, useNavigate } from 'react-router';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import AddPost from './components/AddPost';
 import Auth from './components/Auth';
 import Navbar from './components/Navbar';
@@ -34,10 +34,10 @@ function App() {
             </>
           ) : (
             <>
-              <Route path='/all' element={<Feed /> } />
+              <Route path='/' element={<Feed /> } />
               <Route path='/posts/add' element={<AddPost /> } />
-              <Route path='/myPosts' element={<UserPosts /> } />
-              <Route path='/myPosts/:id' element={<PostDetail /> } />
+              <Route path='/myposts' element={<UserPosts /> } />
+              <Route path='/myposts/:id' element={<PostDetail /> } />
             </>
           )}
         </Routes>
