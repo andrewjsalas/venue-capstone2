@@ -8,7 +8,7 @@ function Posts() {
     const sendRequest = async () => {
         try {
             const res = await axios.get('http://localhost:3001/api/post');
-            console.log("Test result ", res);
+            console.log("Test result in Posts.js", res);
 
             const data = res.data;
             return data.posts;

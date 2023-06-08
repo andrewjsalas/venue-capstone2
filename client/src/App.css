@@ -2,12 +2,17 @@
     box-sizing: border-box;
 }
 
-/* Auth page styles */
+body {
+    background-color: #343a40;
+}
+
+/* AUTH PAGE STYLES */
 .auth-container {
     height: 100vh;
     display: flex;
     align-items: stretch;
     justify-content: center;
+    background-color: white;
 }
 
 .logo-column {
@@ -23,3 +28,30 @@
     max-width: 100%;
 }
 
+/* NAVBAR STYLES */
+.nav-container {
+    background-color: rgb(20, 20, 20);
+}
+
+.nav-logo{
+    max-height: 75px;
+    width: auto;
+}
+
+.nav-link {
+    font-size: 1.2rem;
+    margin-left: 1.2rem;
+}
+
+/* FEED AND PAGE STYLES */
+
+.post-card {
+    max-width: 40%;
+    margin: 0 auto;
+}
+
+/* ADD POST STYLES */
+.add-post-card {
+    margin: 0 auto;
+    max-width: 40%;
+}

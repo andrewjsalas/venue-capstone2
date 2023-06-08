@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
+import { Card } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 
 const AddPost = () => {
@@ -40,11 +41,7 @@ const AddPost = () => {
         event.preventDefault();
 
         try {
-            const data = await sendRequest({
-                title: inputs.title,
-                body: inputs.body,
-                user: localStorage.getItem("userId")
-            });
+            const data = await sendRequest();
             console.log(data);
             navigate('/')
         } catch (error) {
@@ -54,35 +51,43 @@ const AddPost = () => {
     };
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <Form.Group>
-                <Form.Label>Title</Form.Label>
-                <Form.Control 
-                    name='title'
-                    onChange={handleChange}
-                    type='text'
-                    placeholder='Post title'
-                    value={inputs.title}
-                />
-            </Form.Group>
-            
-            <Form.Group>
-                <Form.Label>Body</Form.Label>
-                <Form.Control 
-                    name='body'
-                    onChange={handleChange}
-                    type='text'
-                    placeholder='Type body content'
-                    value={inputs.body}
-                />
-            </Form.Group>
+        <div>
+            <h1 className='add-post-header text-white mt-3 text-center'>Create a post</h1>
+            <Card className="mt-4 p-4 shadow add-post-card">
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group className='add-post-title mb-3'>
+                        {/* <Form.Label>Title</Form.Label> */}
+                        <Form.Control 
+                            name='title'
+                            onChange={handleChange}
+                            type='text'
+                            placeholder='Title'
+                            value={inputs.title}
+                        />
+                    </Form.Group>
+                    
+                    <Form.Group className='add-post-body mb-3'>
+                        {/* <Form.Label>Body</Form.Label> */}
+                        <Form.Control
+                            as='textarea' 
+                            name='body'
+                            onChange={handleChange}
+                            type='text'
+                            placeholder='Body'
+                            value={inputs.body}
+                        />
+                    </Form.Group>
 
-            <Button
-                type='submit'
-            >
-                Submit
-            </Button>
-        </Form>
+                    <Button
+                        className='shadow'
+                        variant='dark'
+                        type='submit'
+                    >
+                        Submit
+                    </Button>
+                </Form>
+            </Card>
+        </div>
     )
 }
 

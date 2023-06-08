@@ -3,6 +3,7 @@ import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../store";
+import logo from '../assets/logo_cream.png'
 
 function NavBar() {
   const dispatch = useDispatch();
@@ -14,10 +15,11 @@ function NavBar() {
   };
 
   return (
-    <Navbar>
+    <Navbar className="nav-container">
       <Container>
         <Navbar.Brand as={Link} to="/">
-          Venue
+          {/* Venue */}
+          <img src={logo} alt="Logo" className="nav-logo" />
         </Navbar.Brand>
         {isLoggedIn && (
           <Nav className="ms-auto">
@@ -25,13 +27,15 @@ function NavBar() {
               as={Link}
               to="/myposts"
               active={isActiveRoute("/myposts")}
+              className="text-light nav-link"
             >
               My Posts
             </Nav.Link>
             <Nav.Link
               as={Link}
-              to="/posts/add"
-              active={isActiveRoute("/posts/add")}
+              to="/add"
+              active={isActiveRoute("/post/add") ? 'active' : ''}
+              className="text-light nav-link"
             >
               Create Post
             </Nav.Link>
@@ -59,7 +63,7 @@ function NavBar() {
               as={Link}
               to="/"
               variant="contained"
-              className="me-2"
+              className="me-2 text-light nav-link"
             >
               Log Out
             </Button>

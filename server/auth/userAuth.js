@@ -92,7 +92,7 @@ const getUserById = async (req, res, next) => {
     }
 
     if (!user) {
-        console.log("User object in the !user ", user);
+        console.log("User object in the !user loop in userAuth.js ", user);
         return res.status(400).json({ message: "Unable to find user. "});
     }
 
@@ -110,7 +110,6 @@ const getUserPosts = async (req, res, next) => {
 
         const posts = user.posts;
         return res.json({ posts });
-        next();
     } catch (error) {
         return res.status(500).json({ message: `Error retrieving user posts: ${error.message}`});
     }

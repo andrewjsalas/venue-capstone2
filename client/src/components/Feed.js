@@ -21,12 +21,12 @@ function Feed() {
     }, []);
 
     return (
-        <div>
+        <div className='bg-dark card-container'>
           {posts.length === 0 ? (
             <h4>No posts to display</h4>
           ) : (
             posts.map((post) => (
-              <Card key={post._id} className='mb-3'>
+              <Card key={post._id} className='post-card mb-3 mt-3'>
                 <Card.Body>
                   <Card.Title>{post.title}</Card.Title>
                   <Card.Subtitle>{post.name}</Card.Subtitle>

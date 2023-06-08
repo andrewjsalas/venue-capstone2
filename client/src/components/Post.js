@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import axios from 'axios';
 import { Card, Button } from 'react-bootstrap';
 
-const Post = ({ title, body, userName, isUser, id }) => {
+const Post = ({ title, body, name, isUser, id }) => {
     const navigate = useNavigate();
 
     const handleEdit = (event) => {
@@ -36,7 +36,7 @@ const Post = ({ title, body, userName, isUser, id }) => {
             <Card>
                 <Card.Body>
                     <Card.Title>{title}</Card.Title>
-                    <Card.Subtitle>{userName}</Card.Subtitle>
+                    <Card.Subtitle>{name}</Card.Subtitle>
                     <Card.Text>{body}</Card.Text>
                     {isUser && (
                         <div>
