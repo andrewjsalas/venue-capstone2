@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Posts = require('../models/Posts');
 const Users = require('../models/Users');
-const { ObjectId } = mongoose.Types;
+const { ObjectId } = mongoose.Schema.Types;
 
 
 // Get all posts
@@ -20,9 +20,10 @@ const getAllPosts = async (req, res, next) => {
     }
 };
 
+// Add a post
 const addPost = async (req, res, next) => {
     try {
-        const { title, body, user } = req.body;
+        const { title, body, user, } = req.body;
 
         const post = await Posts.create({
             title,
@@ -45,31 +46,6 @@ const addPost = async (req, res, next) => {
         console.log("Error is in addPost.js, postAuth.js", error);
         return res.status(500).json({ message: "Server error in addPost.js",error });
     }
-
-    // try {
-    //     const { title, body, user } = req.body;
-
-    //     const newPost = new Posts({
-    //         title, 
-    //         body,
-    //         user: req.user.name
-    //     });
-    //     console.log("newPost log: ", newPost);
-
-    //     await newPost.save();
-
-    //     const foundUser = await Users.findById(req.user._id);
-    //     console.log("foundUser log: ",foundUser)
-
-    //     foundUser.posts.push(newPost._id);
-    //     await foundUser.save();
-
-    //     return res.status(200).json({ newPost });
-        
-    // } catch (error) {
-    //     console.log("Error is in addPost.js, postAuth.js", error);
-    //     return res.status(500).json({ message: "Server error in addPost.js",error });
-    // }
 }
 
 

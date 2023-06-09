@@ -21,6 +21,7 @@ const AddPost = () => {
 
     const sendRequest = async () => {
         const userId = localStorage.getItem("userId");
+        const userName = localStorage.getItem('userName');
         // const postId = req.params._id;
         // console.log(userId);
 
@@ -28,6 +29,7 @@ const AddPost = () => {
             const res = await axios.post("http://localhost:3001/api/post/add", {
                 title: inputs.title,
                 body: inputs.body,
+                name: userName,
                 user: userId
             });
             
@@ -39,12 +41,11 @@ const AddPost = () => {
     };
 
     const handleSubmit = async (event) => {
-        event.preventDefault();
 
         try {
             const data = await sendRequest();
-            console.log(data);
-            navigate('/')
+            console.log("Data inside the handleSubmit() function", data);
+            navigate('/');
         } catch (error) {
             console.log("Error is in handleSubmit addPost.js", error);
             throw error;

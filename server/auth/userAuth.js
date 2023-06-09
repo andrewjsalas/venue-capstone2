@@ -86,6 +86,7 @@ const getUserById = async (req, res, next) => {
 
     try {
         user = await Users.findById(req.query._id);
+        console.log("User in getUserByID in userAuth.js: ", user);
     } catch (error) {
         console.log(error);
         next(error);
