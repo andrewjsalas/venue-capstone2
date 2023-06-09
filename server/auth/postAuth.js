@@ -24,25 +24,54 @@ const addPost = async (req, res, next) => {
     try {
         const { title, body, user } = req.body;
 
-        const newPost = new Posts({
-            title, 
+        const post = await Posts.create({
+            title,
             body,
-            user: req.user._id
+            user: user.name
         });
 
-        await newPost.save();
+        await Users.findByIdAndUpdate(
+            user,
+            {
+                $push: {
+                    posts: post._id
+                }
+            }
+        );
+        console.log(post); 
 
-        const foundUser = await Users.findById(req.user._id);
-        foundUser.posts.push(newPost._id);
-        await foundUser.save();
-
-        return res.status(200).json({ newPost });
-        
+        return post;
     } catch (error) {
-        console.log("Error is in addPost.js postAuth.js", error);
-        return res.status(500).json({ message: error });
+        console.log("Error is in addPost.js, postAuth.js", error);
+        return res.status(500).json({ message: "Server error in addPost.js",error });
     }
+
+    // try {
+    //     const { title, body, user } = req.body;
+
+    //     const newPost = new Posts({
+    //         title, 
+    //         body,
+    //         user: req.user.name
+    //     });
+    //     console.log("newPost log: ", newPost);
+
+    //     await newPost.save();
+
+    //     const foundUser = await Users.findById(req.user._id);
+    //     console.log("foundUser log: ",foundUser)
+
+    //     foundUser.posts.push(newPost._id);
+    //     await foundUser.save();
+
+    //     return res.status(200).json({ newPost });
+        
+    // } catch (error) {
+    //     console.log("Error is in addPost.js, postAuth.js", error);
+    //     return res.status(500).json({ message: "Server error in addPost.js",error });
+    // }
 }
+
 
 const updatePost = async (req, res, next) => {
     const { title, body } = req.body;
@@ -51,10 +80,13 @@ const updatePost = async (req, res, next) => {
     let post;
 
     try {
-        post = await Posts.findByIdAndUpdate(postId, {
-            title, 
-            body,
-        });    
+        post = await Posts.findByIdAndUpdate(
+            postId, 
+            {
+                title, 
+                body,
+            }
+        );    
     } catch (error) {
         return next(error);
     }

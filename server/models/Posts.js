@@ -12,8 +12,13 @@ const postSchema = new Schema({
         required: true,
         maxLength: [8000, "Must be no more than 8,000 characters"]
     },
+    createdAt: {
+        type: Date,
+        immutable: true,
+        default: () => Date.now(),
+    },
     user: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "users",
         required: false,
     }

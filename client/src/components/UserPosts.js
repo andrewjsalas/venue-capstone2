@@ -37,7 +37,7 @@ function UserPosts() {
             <Card key={post._id} className='post-card mb-3 mt-3'>
               <Card.Body>
                 <Card.Title>{post.title}</Card.Title>
-                <Card.Subtitle>{post.name}</Card.Subtitle>
+                <Card.Subtitle>{post.users.name}</Card.Subtitle>
                 <Card.Text>{post.body}</Card.Text>
               </Card.Body>
             </Card>

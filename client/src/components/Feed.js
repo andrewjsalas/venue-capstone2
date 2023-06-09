@@ -5,12 +5,14 @@ import Post from './Post'
 
 function Feed() {
     const [posts, setPosts] = useState([]);
+    const id = localStorage.getItem('userId');
 
     useEffect(() => {
         const fetchPosts = async () => {
           try {
             const res = await axios.get('http://localhost:3001/api/post/all');
             const data = res.data;
+            console.log(data);
             setPosts(data.posts);
           } catch (error) {
             console.log('Error fetching posts', error);

@@ -22,7 +22,7 @@ const userSchema = new Schema({
     },
     posts: [
         {
-            type: mongoose.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "posts",
             required: false,
         }

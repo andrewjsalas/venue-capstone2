@@ -51,7 +51,7 @@ const Auth = () => {
 
         const handleAuthentication = (data) => {
             localStorage.setItem("userId", data.user._id);
-            dispatch(authActions.signin());
+            dispatch(authActions.signin(data.user));
             navigate('/');
             console.log(data);
         };

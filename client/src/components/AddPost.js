@@ -21,7 +21,8 @@ const AddPost = () => {
 
     const sendRequest = async () => {
         const userId = localStorage.getItem("userId");
-        console.log(userId);
+        // const postId = req.params._id;
+        // console.log(userId);
 
         try {
             const res = await axios.post("http://localhost:3001/api/post/add", {
