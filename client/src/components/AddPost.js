@@ -19,9 +19,9 @@ const AddPost = () => {
         }));
     };
 
-    const sendRequest = async () => {
-        const userId = localStorage.getItem("userId");
-        const userName = localStorage.getItem('userName');
+    const sendRequest = async (type = "signing") => {
+        // const userId = localStorage.getItem("userId");
+        // const userName = localStorage.getItem('userName');
         // const postId = req.params._id;
         // console.log(userId);
 
@@ -29,8 +29,8 @@ const AddPost = () => {
             const res = await axios.post("http://localhost:3001/api/post/add", {
                 title: inputs.title,
                 body: inputs.body,
-                name: userName,
-                user: userId
+                name: localStorage.getItem('userName'),
+                user: localStorage.getItem("userId")
             });
             
             return res.data;
@@ -45,6 +45,7 @@ const AddPost = () => {
         try {
             const data = await sendRequest();
             console.log("Data inside the handleSubmit() function", data);
+            setInputs('');
             navigate('/');
         } catch (error) {
             console.log("Error is in handleSubmit addPost.js", error);

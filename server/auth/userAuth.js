@@ -85,7 +85,7 @@ const getUserById = async (req, res, next) => {
     let user;
 
     try {
-        user = await Users.findById(req.query._id);
+        user = await Users.findById(req.query._id).populate('posts');
         console.log("User in getUserByID in userAuth.js: ", user);
     } catch (error) {
         console.log(error);

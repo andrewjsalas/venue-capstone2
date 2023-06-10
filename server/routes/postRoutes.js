@@ -10,7 +10,7 @@ const {
 
 postRouter.get('/all', getAllPosts);
 postRouter.post('/add', addPost);
-postRouter.put('/update/:id', updatePost);
+postRouter.patch('/:id', updatePost);
 postRouter.get('/:id', getPostById);
 postRouter.delete('/:id', deletePost);
 

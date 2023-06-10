@@ -6,14 +6,14 @@ const userSchema = new Schema({
     name: {
         type: String,
         required: true,
-        unique: true,
+        unique: [true, "User already exists"],
         minLength: [6, "Must be at least 6 characters long"],
         maxLength: [20, "Must be no more than 20 characters long"]
     },
     email: {
         type: String,
         required: true,
-        unique: true,
+        unique: [true, "Email already exists."],
     },
     password: {
         type: String,

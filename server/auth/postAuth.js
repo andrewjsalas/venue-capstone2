@@ -7,7 +7,7 @@ const { ObjectId } = mongoose.Schema.Types;
 // Get all posts
 const getAllPosts = async (req, res, next) => {
     try {
-        const posts = await Posts.find({});
+        const posts = await Posts.find({}).populate("user");
         
         if (!posts) {
             return res.status(404).json({ message: "No posts found" });
@@ -32,7 +32,7 @@ const addPost = async (req, res, next) => {
         });
 
         await Users.findByIdAndUpdate(
-            user,
+            user._id,
             {
                 $push: {
                     posts: post._id
@@ -51,10 +51,8 @@ const addPost = async (req, res, next) => {
 
 const updatePost = async (req, res, next) => {
     const { title, body } = req.body;
-
-    const postId = req.params._id;
+    const postId = req.params.id;
     let post;
-
     try {
         post = await Posts.findByIdAndUpdate(
             postId, 
@@ -100,7 +98,7 @@ const deletePost = async (req, res, next) => {
     let post;
 
     try {
-        post = await Posts.findByIdAndRemove(req.params._id).populate('user');
+        post = await Posts.findByIdAndRemove(req.params._id);
         await post.user.posts.pull(post);
         await post.user.save();
     } catch (error) {

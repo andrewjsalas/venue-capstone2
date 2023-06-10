@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 
 function Feed() {
     const [posts, setPosts] = useState([]);
@@ -26,6 +28,17 @@ function Feed() {
         fetchPosts();
     }, []);
 
+    // Deletes a post
+    // const handleDeletePost = async (postId) => {
+    //   try {
+    //     await axios.delete(`http://localhost:3001/api/post/${postId}`);
+    //     setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
+    //     console.log('Error is in DeletePost');
+    //   } catch (error) {
+    //     console.log('Error deleting post', error);
+    //   }
+    // }
+
     return (
         <div className='bg-dark card-container'>
           {posts.length === 0 ? (
@@ -44,8 +57,28 @@ function Feed() {
                     })}
                   </small>
 
-                  <Card.Subtitle>{post.userName}</Card.Subtitle>
+                  {/* <Card.Subtitle>{post.userName}</Card.Subtitle> */}
                   <Card.Text>{post.body}</Card.Text>
+                  
+                  {/* {post.user._id === id && (
+                    <div>
+                      <Button variant='warning' className='mr-2'>
+                        <Link
+                          to={`/update/${post._id}`}
+                          style={{ textDecoration: 'none', color: 'white' }}
+                        >
+                          Edit
+                        </Link>
+                      </Button>
+                      <Button
+                        variant='danger'
+                        onClick={() => handleDeletePost(post._id)}
+                      >
+                        Delete
+                      </Button>
+                    </div>
+                  )} */}
+
                 </Card.Body>
               </Card>
             ))
