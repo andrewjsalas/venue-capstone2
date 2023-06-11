@@ -1,6 +1,7 @@
 const Users = require('../models/Users.js');
 const Posts = require('../models/Posts.js');
 const bcrypt = require('bcrypt');
+const { addPost } = require('./postAuth.js');
 
 const getAllUsers = async (req, res, next) => {
     let users;
@@ -114,6 +115,9 @@ const getUserPosts = async (req, res, next) => {
         console.log('User variable in getUserPosts', user);
         const posts = user.posts;
         console.log('Posts object in getUserPost', posts);
+
+        await addPost(req, res, user);
+
         return res.json({ posts });
     } catch (error) {
         return res.status(500).json({ message: `Error retrieving user posts: ${error.message}`});

@@ -12,6 +12,11 @@ const postSchema = new Schema({
         required: true,
         maxLength: [8000, "Must be no more than 8,000 characters"]
     },
+    name: {
+        type: String,
+        ref: 'users', 
+        required: false,
+    },
     createdAt: {
         type: Date,
         immutable: true,

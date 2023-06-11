@@ -23,25 +23,40 @@ const getAllPosts = async (req, res, next) => {
 // Add a post
 const addPost = async (req, res, next) => {
     try {
-        const { title, body, user, } = req.body;
+        const { title, body, user, name } = req.body;
+        console.log("User in addPost before create: ", user);
+        console.log("Logging the req.body: ", req.body);
+
+        let existingUser;
+        try {
+            existingUser = await Users.findById(user);
+        } catch (error) {
+            return console.log('No user found in addPost', error);
+        }
 
         const post = await Posts.create({
             title,
             body,
-            user: user.name
+            name: user.name,
+            user
         });
 
-        await Users.findByIdAndUpdate(
-            user._id,
+        console.log("Post created in addPost: ", post);
+        console.log("User ID before update: ", user._id);
+
+        const updatedUser = await Users.findByIdAndUpdate(
+            user,
             {
                 $push: {
                     posts: post._id
                 }
-            }
-        );
-        console.log(post); 
+            }, 
+            { new: true }
+        ).populate('posts');
 
-        return post;
+        console.log("updatedUser: ", updatedUser);
+
+        return res.status(201).json({ success: true, post });
     } catch (error) {
         console.log("Error is in addPost.js, postAuth.js", error);
         return res.status(500).json({ message: "Server error in addPost.js",error });

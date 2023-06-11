@@ -14,7 +14,7 @@ function Feed() {
           try {
             const res = await axios.get('http://localhost:3001/api/post/all');
             const data = res.data;
-            console.log('Data', data);
+            // console.log('Fetched Posts: ', data);
 
             // Sort the posts based on createdAt (newest first)
             const sortedPosts = [...data.posts].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));

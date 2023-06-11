@@ -41,7 +41,7 @@ const AddPost = () => {
     };
 
     const handleSubmit = async (event) => {
-
+        event.preventDefault();
         try {
             const data = await sendRequest();
             console.log("Data inside the handleSubmit() function", data);
