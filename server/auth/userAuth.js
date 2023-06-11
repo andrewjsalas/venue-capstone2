@@ -83,9 +83,11 @@ const signIn = async (req, res, next) => {
 
 const getUserById = async (req, res, next) => {
     let user;
+    const userId = req.query._id;
+    // const email = req.query.email;
 
     try {
-        user = await Users.findById(req.query._id).populate('posts');
+        user = await Users.findById(userId).populate('posts');
         console.log("User in getUserByID in userAuth.js: ", user);
     } catch (error) {
         console.log(error);
@@ -106,28 +108,16 @@ const getUserPosts = async (req, res, next) => {
     try {
         const user = await Users.findById(userId).populate('posts');
         if (!user) {
-            return res.status(400).json({ message: 'User not found' });
+            return res.status(404).json({ message: 'User not found' });
         }
 
+        console.log('User variable in getUserPosts', user);
         const posts = user.posts;
+        console.log('Posts object in getUserPost', posts);
         return res.json({ posts });
     } catch (error) {
         return res.status(500).json({ message: `Error retrieving user posts: ${error.message}`});
     }
-
-    // try {
-    //     const id = req.params._id;
-    //     const posts = await Posts.find({ _id: id });
-        
-    //     if (!posts) {
-    //         return res.status(404).json({ message: "No posts found" });
-    //     }
-
-    //     return res.status(200).json({posts});
-    // } catch (error) {
-    //     console.log("error is in getAllPosts", error);
-    //     return next(error);
-    // }
 };
 
 module.exports = {

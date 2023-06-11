@@ -3,30 +3,25 @@ import axios from 'axios';
 import Card from 'react-bootstrap/Card'
 
 function UserPosts () {
+  // Declare state variable and its setter 
     const [userPosts, setUserPosts] = useState([]);
     const id = localStorage.getItem('userId');
+    
 
     const fetchUserPosts = useCallback(async () => {
         try {
-            const res = await axios.get(`http://localhost:3001/api/user/myposts`, {
-                params: {
-                    _id: id
-                }
-            });
-            const { posts } = res.data.user;
+            const res = await axios.get(`http://localhost:3001/api/user/myposts?_id=${id}`);
+            const { posts } = res.data.user; 
             console.log("Response data: ", res.data)
-            console.log("Posts in the UserPosts component: ", posts)
-            // setUserPosts(posts);
+            console.log("Type of posts log: ", typeof posts);
+
+            const sortedPosts = [...posts].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+            setUserPosts(sortedPosts);
 
 
-            const postPromises = posts.map(async (postId) => {
-              const postRes = await axios.get(`http://localhost:3001/api/posts/${postId}`);
-              return postRes.data.post;
-            });
+            console.log(posts);
 
-            const fetchedPosts = await Promise.all(postPromises);
-
-            setUserPosts(fetchedPosts);
         } catch (error) {
             console.log('Error fetching user posts', error);
         }
@@ -45,7 +40,14 @@ function UserPosts () {
             <Card key={post._id} className='post-card mb-3 mt-3'>
               <Card.Body>
                 <Card.Title>{post.title}</Card.Title>
-                <Card.Subtitle>{post.user.name}</Card.Subtitle>
+                <Card.Subtitle>{post.user}</Card.Subtitle>
+                <small className="text-muted">Posted: 
+                    {new Date(post.createdAt).toLocaleDateString("en-US", {
+                      day: '2-digit',
+                      month: '2-digit',
+                      year: 'numeric'
+                    })}
+                  </small>
                 <Card.Text>{post.body}</Card.Text>
               </Card.Body>
             </Card>

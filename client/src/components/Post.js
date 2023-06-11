@@ -32,10 +32,10 @@ const Post = ({ title, body, name, isUser, id }) => {
     };
 
     return (
-        <div>
-            <Card>
+        <div className='bg-dark card-container'>
+            <Card className='post-card mb-3 mt-3'>
                 <Card.Body>
-                    <Card.Title>{title}</Card.Title>
+                    <Card.Title className='card-title'>{title}</Card.Title>
                     <Card.Subtitle>{name}</Card.Subtitle>
                     <Card.Text>{body}</Card.Text>
                     {isUser && (

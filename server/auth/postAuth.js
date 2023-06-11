@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Posts = require('../models/Posts');
 const Users = require('../models/Users');
-const { ObjectId } = mongoose.Schema.Types;
+const { Types: {ObjectId} } = require('mongoose');
 
 
 // Get all posts

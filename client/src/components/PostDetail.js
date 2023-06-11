@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
-import { Form , Button } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 
 function PostDetail() {
@@ -16,8 +16,8 @@ function PostDetail() {
       [event.target.name]: event.target.value,
     }));
   };
-  
-  const sendRequest = async () => {
+
+  const updatePostRequest = async () => {
     try {
       const res = await axios.put(`http://localhost:3001/api/post/update/${id}`, {
         title: inputs.title,
@@ -34,14 +34,14 @@ function PostDetail() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const data = await sendRequest();
+      const data = await updatePostRequest();
       console.log(data);
       navigate('../myposts');
     } catch (error) {
       console.log(error);
     }
   };
-  
+
   useEffect(() => {
     const fetchDetails = async () => {
       try {
@@ -53,7 +53,7 @@ function PostDetail() {
         throw error;
       }
     };
-    
+
     fetchDetails()
       .then((data) => {
         setPost(data);
@@ -67,7 +67,7 @@ function PostDetail() {
 
   return (
     <div>
-      {inputs && (
+      {post && (
         <Form onSubmit={handleSubmit}>
           <div>
             <h3>Edit Post</h3>
@@ -83,7 +83,7 @@ function PostDetail() {
 
             <Form.Group controlId="body">
               <Form.Label>Body</Form.Label>
-              <Form.Control 
+              <Form.Control
                 as="textarea"
                 name="body"
                 value={inputs.body}
@@ -91,7 +91,7 @@ function PostDetail() {
               />
             </Form.Group>
 
-            <Button 
+            <Button
               variant="warning"
               type="submit"
               className="mt-2 rounded"

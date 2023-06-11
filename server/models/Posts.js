@@ -16,6 +16,7 @@ const postSchema = new Schema({
         type: Date,
         immutable: true,
         default: () => Date.now(),
+        index: true,
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -23,5 +24,7 @@ const postSchema = new Schema({
         required: false,
     }
 });
+
+postSchema.index({ createdAt: -1 });
 
 module.exports = mongoose.model("posts", postSchema);
