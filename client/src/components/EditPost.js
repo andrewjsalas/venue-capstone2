@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 
-function PostDetail() {
+function EditPost() {
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
   const { id } = useParams();
@@ -17,17 +17,38 @@ function PostDetail() {
     }));
   };
 
-  const updatePostRequest = async () => {
+  const getPostDetails = async () => {
     try {
-      const res = await axios.put(`http://localhost:3001/api/post/update/${id}`, {
-        title: inputs.title,
-        body: inputs.body,
-      });
-
+      const res = await axios.get(`http://localhost:3001/api/post/${id}`);
       const data = res.data;
       return data;
     } catch (error) {
-      console.log("updatePostRequest error: ", error);
+      console.log(error);
+      throw error;
+    }
+  };
+
+  const updatePost = async () => {
+    try {
+      const res = await axios.patch(`http://localhost:3001/api/post/update/${id}`, {
+        title: inputs.title,
+        body: inputs.body,
+      });
+      const data = res.data;
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+
+  const deletePost = async () => {
+    try {
+      const res = await axios.delete(`http://localhost:3001/api/post/${id}`);
+      const data = res.data;
+      return data;
+    } catch (error) {
+      console.log(error);
       throw error;
     }
   };
@@ -35,28 +56,26 @@ function PostDetail() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const data = await updatePostRequest();
-      console.log("Update post data: ", data);
-      navigate('../myposts');
+      const data = await updatePost();
+      console.log(data);
+      navigate('/myposts');
     } catch (error) {
-      console.log("handleSubmit in PostDetail.js error: ", error);
+      console.log(error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      const data = await deletePost();
+      console.log(data);
+      navigate('/myposts');
+    } catch (error) {
+      console.log(error);
     }
   };
 
   useEffect(() => {
-    const fetchDetails = async () => {
-      try {
-        const res = await axios.get(`http://localhost:3001/api/post/${id}`);
-        const data = res.data;
-        console.log("fetchDetails: ", data);
-        return data;
-      } catch (error) {
-        console.log(error);
-        throw error;
-      }
-    };
-
-    fetchDetails()
+    getPostDetails()
       .then((data) => {
         setPost(data);
         setInputs({
@@ -65,7 +84,7 @@ function PostDetail() {
         });
       })
       .catch((error) => console.log(error));
-  }, [id]);
+  });
 
   return (
     <div>
@@ -100,6 +119,14 @@ function PostDetail() {
             >
               Update Post
             </Button>
+
+            <Button
+              variant="danger"
+              className="mt-2 rounded ml-2"
+              onClick={handleDelete}
+            >
+              Delete Post
+            </Button>
           </div>
         </Form>
       )}
@@ -107,4 +134,4 @@ function PostDetail() {
   );
 }
 
-export default PostDetail;
+export default EditPost;

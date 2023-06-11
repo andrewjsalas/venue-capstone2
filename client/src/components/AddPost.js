@@ -20,10 +20,11 @@ const AddPost = () => {
     };
 
     const sendRequest = async (type = "signing") => {
-        // const userId = localStorage.getItem("userId");
-        // const userName = localStorage.getItem('userName');
+        const userId = localStorage.getItem("userId");
+        const userName = localStorage.getItem('userName');
         // const postId = req.params._id;
-        // console.log(userId);
+        console.log("The users ID in AddPost: ", userId);
+        console.log("The users name in AddPost: ", userName);
 
         try {
             const res = await axios.post("http://localhost:3001/api/post/add", {

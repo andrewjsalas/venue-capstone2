@@ -10,9 +10,9 @@ const {
 
 postRouter.get('/all', getAllPosts);
 postRouter.post('/add', addPost);
-postRouter.patch('/:id', updatePost);
+postRouter.put('/update/:id', updatePost);
 postRouter.get('/:id', getPostById);
-postRouter.delete('/:id', deletePost);
+postRouter.delete('/:postId', deletePost);
 
 
 module.exports = postRouter;

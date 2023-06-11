@@ -25,7 +25,7 @@ const addPost = async (req, res, next) => {
     try {
         const { title, body, user, name } = req.body;
         console.log("User in addPost before create: ", user);
-        console.log("Logging the req.body: ", req.body);
+        console.log("The users name: ", name);
 
         let existingUser;
         try {
@@ -37,12 +37,12 @@ const addPost = async (req, res, next) => {
         const post = await Posts.create({
             title,
             body,
-            name: user.name,
-            user
+            user,
+            name: existingUser.name,
         });
 
-        console.log("Post created in addPost: ", post);
-        console.log("User ID before update: ", user._id);
+        // console.log("Post created in addPost: ", post);
+        // console.log("User ID before update: ", user._id);
 
         const updatedUser = await Users.findByIdAndUpdate(
             user,
@@ -54,6 +54,7 @@ const addPost = async (req, res, next) => {
             { new: true }
         ).populate('posts');
 
+        console.log("Created post: ", post);
         console.log("updatedUser: ", updatedUser);
 
         return res.status(201).json({ success: true, post });
@@ -74,15 +75,17 @@ const updatePost = async (req, res, next) => {
             {
                 title, 
                 body,
+            },
+            { new: true }
+            ); 
+
+            if(!post) {
+                return res.status(500).json({ message: "Unable to update post" });
             }
-        );    
-    } catch (error) {
+        } catch (error) {
         return next(error);
     }
 
-    if(!post) {
-        return res.status(500).json({ message: "Unable to update post" });
-    }
 
     return res.status(200).json({ post });
 };
@@ -113,15 +116,19 @@ const deletePost = async (req, res, next) => {
     let post;
 
     try {
-        post = await Posts.findByIdAndRemove(req.params._id);
+        console.log("postId check: ", req.params.postId);
+        post = await Posts.findByIdAndRemove(req.params.postId).populate('user');
+
+        console.log("Post before conditional checK: ", post);
+        if (!post) {
+            return res.status(500).json({ message: "Unable to delete post." })
+        }
+        console.log("Post in deletePost after conditional check: ", post);
+
         await post.user.posts.pull(post);
         await post.user.save();
     } catch (error) {
         return next(error);
-    }
-
-    if (!post) {
-        return res.status(500).json({ message: "Unable to delete post."});
     }
 
     return res.status(200).json({ message: "Successfully deleted post."});

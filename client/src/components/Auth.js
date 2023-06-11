@@ -115,7 +115,11 @@ const Auth = () => {
                                     />
                                 </Form.Group>
 
-                                <Button className="d-flex mb-3  shadow" variant="dark" type="submit">
+                                <Button 
+                                    className="d-flex mb-3  shadow" 
+                                    variant="dark" 
+                                    type="submit"
+                                >
                                     {isSignup ? 'Create Account' :  'Sign In'}
                                 </Button>
                                 <Button
