@@ -17,7 +17,7 @@ const Footer = () => {
               <Col xs="auto">
                 <p>
                   <a
-                    href="https://github.com/your-github"
+                    href="https://github.com/andrewjsalas"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -25,7 +25,7 @@ const Footer = () => {
                   </a>
                   <span>|</span>
                   <a
-                    href="https://www.linkedin.com/in/your-linkedin"
+                    href="https://www.linkedin.com/in/andrewjsalas/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
