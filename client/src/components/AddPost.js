@@ -22,7 +22,6 @@ const AddPost = () => {
     const sendRequest = async (type = "signing") => {
         const userId = localStorage.getItem("userId");
         const userName = localStorage.getItem('userName');
-        // const postId = req.params._id;
         console.log("The users ID in AddPost: ", userId);
         console.log("The users name in AddPost: ", userName);
 
@@ -60,7 +59,7 @@ const AddPost = () => {
             <Card className="mt-4 p-4 shadow add-post-card">
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className='add-post-title mb-3'>
-                        {/* <Form.Label>Title</Form.Label> */}
+
                         <Form.Control 
                             name='title'
                             onChange={handleChange}
@@ -71,7 +70,7 @@ const AddPost = () => {
                     </Form.Group>
                     
                     <Form.Group className='add-post-body mb-3'>
-                        {/* <Form.Label>Body</Form.Label> */}
+
                         <Form.Control
                             as='textarea' 
                             name='body'

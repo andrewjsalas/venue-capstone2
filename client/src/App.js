@@ -7,7 +7,7 @@ import AddPost from './components/AddPost';
 import Auth from './components/Auth';
 import Navbar from './components/Navbar';
 import UserPosts from './components/UserPosts';
-import PostDetail from './components/PostDetail';
+// import PostDetail from './components/PostDetail';
 import Feed from './components/Feed';
 
 function App() {
@@ -40,7 +40,7 @@ function App() {
               <Route path='/' element={<Feed />} />
               <Route path='/add' element={<AddPost />} />
               <Route path='/myposts' element={<UserPosts />} />
-              <Route path='/myposts/:id' element={<PostDetail />} />
+              {/* <Route path='/myposts/:id' element={<PostDetail />} /> */}
             </>
           )}
         </Routes>
