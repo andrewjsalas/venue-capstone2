@@ -3,11 +3,11 @@ import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from './store';
 import { Route, Routes, useLocation } from 'react-router-dom';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import AddPost from './components/AddPost';
 import Auth from './components/Auth';
 import Navbar from './components/Navbar';
 import UserPosts from './components/UserPosts';
-// import PostDetail from './components/PostDetail';
 import Feed from './components/Feed';
 
 function App() {
@@ -40,7 +40,6 @@ function App() {
               <Route path='/' element={<Feed />} />
               <Route path='/add' element={<AddPost />} />
               <Route path='/myposts' element={<UserPosts />} />
-              {/* <Route path='/myposts/:id' element={<PostDetail />} /> */}
             </>
           )}
         </Routes>
