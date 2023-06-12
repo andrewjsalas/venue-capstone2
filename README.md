@@ -14,8 +14,8 @@ Express
 React
 Node.js
 
-With:
-* Frontend:
+Also With:
+Frontend:
 * React-Redux
 * React-Bootstrap
 * React-Rotuer
