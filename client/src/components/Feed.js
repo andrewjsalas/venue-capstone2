@@ -3,8 +3,10 @@ import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 import Footer from './Footer';
 
+
 function Feed() {
   const [posts, setPosts] = useState([]);
+
 
   const fetchPosts = async () => {
     try {
@@ -53,14 +55,6 @@ function Feed() {
         ))
       )}
               
-    </div>
-    {/* Footer card */}
-    <div>
-      <Card className='bg-dark'>
-        <Card.Body>
-          <Footer />
-        </Card.Body>
-      </Card>
     </div>
     </div>
   );

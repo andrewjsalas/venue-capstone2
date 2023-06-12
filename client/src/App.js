@@ -9,6 +9,7 @@ import Auth from './components/Auth';
 import Navbar from './components/Navbar';
 import UserPosts from './components/UserPosts';
 import Feed from './components/Feed';
+import Footer from './components/Footer';
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ function App() {
           )}
         </Routes>
       </main>
+      {isLoggedIn && <Footer />}
     </>
   );
 }

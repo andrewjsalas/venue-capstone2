@@ -17,17 +17,25 @@ function NavBar() {
   return (
     <Navbar className="nav-container">
       <Container>
-        <Navbar.Brand as={Link} to="/">
-          {/* Venue */}
-          <img src={logo} alt="Logo" className="nav-logo" />
+        <Navbar.Brand 
+          as={Link} 
+          to="/"
+          className="nav-logo"  
+        >
+          <img 
+            src={logo} 
+            alt="Logo" 
+            className="nav-logo" 
+          />
         </Navbar.Brand>
+
         {isLoggedIn && (
           <Nav className="ms-auto">
             <Nav.Link
               as={Link}
               to="/myposts"
               active={isActiveRoute("/myposts")}
-              className="text-light nav-link"
+              className="text-light nav-link me-2"
             >
               My Posts
             </Nav.Link>
@@ -35,7 +43,7 @@ function NavBar() {
               as={Link}
               to="/add"
               active={isActiveRoute("/post/add") ? 'active' : ''}
-              className="text-light nav-link"
+              className="text-light nav-link me-2"
             >
               Create Post
             </Nav.Link>
@@ -44,9 +52,15 @@ function NavBar() {
         <Nav className="ms-auto">
           {!isLoggedIn && (
             <>
-              <Button as={Link} to="/auth" variant="contained" className="me-2">
-                Sign In
+              <Button 
+                as={Link} 
+                to="/auth" 
+                variant="contained" 
+                className="me-2"
+              >
+                Sign In 
               </Button>
+
               <Button
                 as={Link}
                 to="/auth"
@@ -63,7 +77,7 @@ function NavBar() {
               as={Link}
               to="/"
               variant="contained"
-              className="me-2 text-light nav-link"
+              className="me-2 text-light nav-link nav-logout"
             >
               Log Out
             </Button>

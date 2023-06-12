@@ -3,35 +3,37 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 const Footer = () => {
   return (
-    <footer className="footer mt-auto py-3 bg-dark text-white">
+    <footer className="bg-dark text-white font-weight-light border-top border-secondary fixed-bottom ">
       <Container>
-        <Row>
+        <Row className="mt-3">
           <Col xs={12} className="text-center">
             <p>
               &copy; {new Date().getFullYear()} VENUE | All rights reserved
             </p>
-            <p>This app was created by: Andrew J Salas</p>
-            <p>
-                <a 
-                    href="https://github.com/your-github" 
-                    target="_blank" 
-                    rel="noopener noreferrer">
-                    <i 
-                        className="fab fa-github mr-3" 
-                        style={{ color: 'white' }}>
-                    </i>
-                </a>{' '}
-                |{' '}
-                <a 
-                    href="https://www.linkedin.com/in/your-linkedin" 
-                    target="_blank" 
-                    rel="noopener noreferrer">
-                    <i 
-                        className="fab fa-linkedin ml-3" 
-                        style={{ color: 'white' }}>
-                    </i>
-                </a>
-            </p>
+            <Row className="justify-content-center">
+              <Col xs="auto">
+                <p>This site was created by: Andrew J Salas</p>
+              </Col>
+              <Col xs="auto">
+                <p>
+                  <a
+                    href="https://github.com/your-github"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i className="fab fa-github mr-3" style={{ color: 'white' }}></i>
+                  </a>
+                  <span>|</span>
+                  <a
+                    href="https://www.linkedin.com/in/your-linkedin"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i className="fab fa-linkedin ml-3" style={{ color: 'white' }}></i>
+                  </a>
+                </p>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Container>
