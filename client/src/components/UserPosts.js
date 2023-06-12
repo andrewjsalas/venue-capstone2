@@ -87,6 +87,7 @@ function UserPosts() {
             </div>
             <Card.Title className='mt-2'>{post.title}</Card.Title>
             <Card.Text className='mt-3'>{post.body}</Card.Text>
+            <hr></hr>    
 
             {/* Edit and Delete buttons/form */}
             {editPostId === post._id ? (
@@ -112,25 +113,43 @@ function UserPosts() {
                     />
                   </Form.Group>
 
-                  <div className='d-flex justify-content-between'>
-                    <Button variant='success' onClick={() => handleUpdatePost(post._id)}>
+                  <div className='d-flex justify-content-between mt-3'>
+                    <Button
+                      className='shadow' 
+                      variant='dark' 
+                      onClick={() => handleUpdatePost(post._id)}
+                    >
                       Submit
                     </Button>
-                    <Button variant='danger' onClick={handleCancelEdit}>
+                    <Button
+                      className='shadow' 
+                      variant='light' 
+                      onClick={handleCancelEdit}
+                    >
                       Cancel
                     </Button>
                   </div>
                 </div>
               </Form>
+
             ) : (
+
               <div className='d-flex justify-content-between'>
-                <Button variant='primary' onClick={() => setEditPostId(post._id)}>
+                <Button
+                  className='shadow' 
+                  variant='dark' 
+                  onClick={() => setEditPostId(post._id)}
+                >
                   Edit
                 </Button>
-                <Button variant='danger' onClick={() => handleDelete(post._id)}>
+                <Button
+                  className='shadow' 
+                  variant='light' 
+                  onClick={() => handleDelete(post._id)}>
                   Delete
                 </Button>
               </div>
+
             )}
           </Card.Body>
         </Card>
