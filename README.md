@@ -1,7 +1,7 @@
 # VENUE: Where Music is Expressed
 ## A MERN stack twitter/reddit inspired music blog
 
-### Live Demo:
+### Live Demo: https://venue-music-blog.onrender.com/
 
 #### Description:
 This website allows users to create an account, and post abou all things music.
