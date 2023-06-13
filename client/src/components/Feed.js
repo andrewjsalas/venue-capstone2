@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card';
 function Feed() {
   const [posts, setPosts] = useState([]);
 
-  const API_URL = process.env.REACT_APP_MONGODB_URI;
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const fetchPosts = async () => {
     try {

@@ -10,7 +10,15 @@ const app = express();
 dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+
+// Configure CORS
+const allowedOrigins = [
+    'http://localhost:3001', 
+    process.env.REACT_APP_API_SERVER_URL,
+]
+app.use(cors({
+    origin: allowedOrigins,
+}));
 
 app.use('/api/user', userRouter);
 app.use('/api/post', postRouter);
@@ -24,6 +32,6 @@ mongoose.connect(mongoURI, {
     .then(() => console.log('Connected to database'))
     .catch(console.error);
 
-
-app.listen(3001, () => console.log("Server started on port 3001"));
+const port = process.env.PORT || 3001;
+app.listen(port, () => console.log(`Server started on port ${port}`));
 

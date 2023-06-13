@@ -20,7 +20,7 @@ const Auth = () => {
         password: '',
     });
     const [isSignup, setIsSignup] = useState(false);
-    const API_URL = process.env.REACT_APP_MONGODB_URI;
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const handleChange = (event) => {
         setInputs((prevValue) => ({

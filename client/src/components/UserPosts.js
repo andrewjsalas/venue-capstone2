@@ -12,8 +12,7 @@ function UserPosts() {
     body: ''
   });
   const id = localStorage.getItem('userId');
-
-  const API_URL = process.env.REACT_APP_MONGODB_URI;
+  const API_URL = process.env.REACT_APP_API_URL;
 
   /// Fetch the user's posts ///
   const fetchUserPosts = useCallback(async () => {
