@@ -8,7 +8,7 @@ This website allows users to signup, sign in, and logout with the ability to cre
 
 ### Tech Stack:
 MERN:
-Mongodb / Mongoose
+MongoDB
 | Express
 | React
 | Node.js
@@ -21,6 +21,7 @@ Frontend:
 * React-Rotuer
 
 Backend:
+* Mongoose
 * Bcrypt
 * Cors
 * Dotenv
