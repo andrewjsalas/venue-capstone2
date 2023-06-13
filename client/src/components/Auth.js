@@ -37,6 +37,7 @@ const Auth = () => {
                 email: inputs.email,
                 password: inputs.password,
             });
+            console.log("sendRequest res from Auth.js: ", res.data)
 
             return res.data;
         } catch (error) {
@@ -53,7 +54,7 @@ const Auth = () => {
             localStorage.setItem('userName', data.user.name);
             dispatch(authActions.signin(data.user));
             navigate('/');
-            console.log(data);
+            console.log("Error is in handleSubmit Auth.js", data);
         };
 
         const handleError = (error) => {
