@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 // Configure CORS
 const allowedOrigins = [
     'http://localhost:3001', 
-    process.env.REACT_APP_API_SERVER_URL,
+    'https://venue-music-blog.onrender.com',
 ]
 app.use(cors({
     origin: allowedOrigins,
