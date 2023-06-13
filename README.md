@@ -1,11 +1,10 @@
 # VENUE: Where Music is Expressed
-## A MERN stack twitter/reddit inspired music blog
+## A MERN stack Twitter/Reddit inspired music blog
 
 ### Live Demo: https://venue-music-blog.onrender.com/
 
 #### Description:
-This website allows users to create an account, and post abou all things music.
-There is no external API's used. I created all of my own API's to fetch data from the back end to the front end.
+This website allows users to signup, sign in, and logout with the ability to create posts about all things music. There are no external API's used. I created all API endpoints to fetch data from the back end.
 
 ### Tech Stack:
 MERN:
