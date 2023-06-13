@@ -12,12 +12,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-// const secretKey = process.env.SECRET_KEY;
-
 app.use('/api/user', userRouter);
 app.use('/api/post', postRouter);
 
-mongoose.connect("mongodb://127.0.0.1:27017/venue_db", {
+const mongoURI = process.env.MongoDB_URI;
+
+mongoose.connect(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
     })
