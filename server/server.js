@@ -24,6 +24,7 @@ app.use('/api/user', userRouter);
 app.use('/api/post', postRouter);
 
 const mongoURI = process.env.MongoDB_URI;
+const mongoLocalHost = process.env.MongoDB_localhost; // For testing
 
 mongoose.connect(mongoURI, {
     useNewUrlParser: true,
