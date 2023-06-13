@@ -9,9 +9,9 @@ This website allows users to signup, sign in, and logout with the ability to cre
 ### Tech Stack:
 MERN:
 Mongodb / Mongoose
-Express
-React
-Node.js
+| Express
+| React
+| Node.js
 
 Also With:
 
