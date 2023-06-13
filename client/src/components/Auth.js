@@ -14,14 +14,13 @@ import logo from '../assets/full_logo_black.png';
 const Auth = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
     const [inputs, setInputs] = useState({
         name: '',
         email: '',
         password: '',
     });
-
     const [isSignup, setIsSignup] = useState(false);
+    const API_URL = process.env.REACT_APP_MONGODB_URI;
 
     const handleChange = (event) => {
         setInputs((prevValue) => ({
@@ -33,7 +32,7 @@ const Auth = () => {
     // Retrieves required user information from mongodb 
     const sendRequest = async (type = 'signin') => {
         try {
-            const res = await axios.post(`http://localhost:3001/api/user/${type}`, {
+            const res = await axios.post(`${API_URL}/api/user/${type}`, {
                 name: inputs.name,
                 email: inputs.email,
                 password: inputs.password,

@@ -13,17 +13,19 @@ function UserPosts() {
   });
   const id = localStorage.getItem('userId');
 
+  const API_URL = process.env.REACT_APP_MONGODB_URI;
+
   /// Fetch the user's posts ///
   const fetchUserPosts = useCallback(async () => {
     try {
-      const res = await axios.get(`http://localhost:3001/api/user/myposts?_id=${id}`);
+      const res = await axios.get(`${API_URL}/api/user/myposts?_id=${id}`);
       const { posts } = res.data.user;
       const sortedPosts = [...posts].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setUserPosts(sortedPosts);
     } catch (error) {
       console.log('Error fetching user posts', error);
     }
-  }, [id]);
+  }, [id, API_URL]);
 
   useEffect(() => {
     fetchUserPosts();
@@ -48,7 +50,7 @@ function UserPosts() {
     try {
       const postToUpdate = userPosts.find((post) => post._id === postId);
       const updatedPost = { ...postToUpdate, title: inputs.title, body: inputs.body };
-      await axios.put(`http://localhost:3001/api/post/update/${postId}`, updatedPost);
+      await axios.put(`${API_URL}/api/post/update/${postId}`, updatedPost);
       fetchUserPosts();
       setEditPostId(null);
     } catch (error) {
@@ -59,7 +61,7 @@ function UserPosts() {
   /// Delete a post ///
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/api/post/${id}`);
+      await axios.delete(`${API_URL}/api/post/${id}`);
       fetchUserPosts();
     } catch (error) {
       console.log(`Error deleting post with ID: ${id}`, error);

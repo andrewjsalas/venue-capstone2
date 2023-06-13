@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
-import Footer from './Footer';
-
 
 function Feed() {
   const [posts, setPosts] = useState([]);
 
+  const API_URL = process.env.REACT_APP_MONGODB_URI;
 
   const fetchPosts = async () => {
     try {
-      const res = await axios.get('http://localhost:3001/api/post/all');
+      const res = await axios.get(`${API_URL}/api/post/all`);
       const data = res.data;
 
       // Sorts the posts based on createdAt (newest first)

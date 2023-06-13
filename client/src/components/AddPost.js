@@ -11,6 +11,7 @@ const AddPost = () => {
         title: "",
         body: "",
     });
+    const API_URL = process.env.REACT_APP_MONGODB_URI;
 
     const handleChange = (event) => {
         setInputs((preValue) => ({
@@ -26,7 +27,7 @@ const AddPost = () => {
         console.log("The users name in AddPost: ", userName);
 
         try {
-            const res = await axios.post("http://localhost:3001/api/post/add", {
+            const res = await axios.post(`${API_URL}/http://localhost:3001/api/post/add`, {
                 title: inputs.title,
                 body: inputs.body,
                 name: localStorage.getItem('userName'),
