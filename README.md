@@ -1,5 +1,5 @@
 # VENUE: Where Music is Expressed
-## A MERN stack Twitter/Reddit inspired music blog
+## A MERN Stack Twitter/Reddit Inspired Music Blog
 
 ### Live Demo: https://venue-music-blog.onrender.com/
 
