@@ -24,7 +24,7 @@ function Feed() {
   // Display ALL posts from all users
   useEffect(() => {
     fetchPosts();
-  }, []);
+  });
 
   return (
     <div>

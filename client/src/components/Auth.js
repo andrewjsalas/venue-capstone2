@@ -58,7 +58,7 @@ const Auth = () => {
         };
 
         const handleError = (error) => {
-            console.error(error);
+            console.error("handleError error: ", error);
         }
 
         const request = isSignup ? sendRequest("signup") : sendRequest();
