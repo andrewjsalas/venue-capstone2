@@ -3,12 +3,13 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 const Footer = () => {
   return (
-    <footer className="bg-dark text-white font-weight-light border-top border-secondary fixed-bottom ">
+    <footer className="bg-dark text-white font-weight-light border-top border-secondary">
       
       <Container>
         <Row className="mt-3">
           <Col xs={12} className="text-center">
             <p>
+              {/* Gets current year */}
               &copy; {new Date().getFullYear()} VENUE | All rights reserved
             </p>
             <Row className="justify-content-center">
