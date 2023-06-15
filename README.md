@@ -28,5 +28,9 @@ Backend:
 * React-Router
 * JSON Web Token
 
+Testing:
+* React-testing-library
+* Jest
+* Supertest
 
  
