@@ -13,6 +13,7 @@ const AddPost = () => {
     });
     const API_URL = process.env.REACT_APP_API_URL;
 
+    // Handles form input change
     const handleChange = (event) => {
         setInputs((preValue) => ({
             ...preValue,
@@ -20,6 +21,7 @@ const AddPost = () => {
         }));
     };
 
+    // Sends a request to add a post
     const sendRequest = async (type = "signing") => {
         const userId = localStorage.getItem("userId");
         const userName = localStorage.getItem('userName');
@@ -41,6 +43,7 @@ const AddPost = () => {
         }
     };
 
+    // Handles form submission
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
@@ -57,10 +60,11 @@ const AddPost = () => {
     return (
         <div>
             <h1 className='add-post-header text-white mt-3 text-center'>Create a post</h1>
+            
             <Card className="mt-4 p-4 shadow add-post-card">
                 <Form onSubmit={handleSubmit}>
-                    <Form.Group className='add-post-title mb-3'>
 
+                    <Form.Group className='add-post-title mb-3'>
                         <Form.Control 
                             name='title'
                             onChange={handleChange}
@@ -69,9 +73,7 @@ const AddPost = () => {
                             value={inputs.title}
                         />
                     </Form.Group>
-                    
                     <Form.Group className='add-post-body mb-3'>
-
                         <Form.Control
                             as='textarea' 
                             name='body'

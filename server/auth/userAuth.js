@@ -3,8 +3,11 @@ const Posts = require('../models/Posts.js');
 const bcrypt = require('bcrypt');
 const { addPost } = require('./postAuth.js');
 
+// Get All Users
 const getAllUsers = async (req, res, next) => {
     let users;
+
+    // Fetches all users in the Users model schema.
     try {
         users = await Users.find();
     } catch (error) {
@@ -25,6 +28,7 @@ const signUp = async (req, res, next) => {
         throw new Error("All inputs required");
     }
 
+    // Checks if an email is already registered
     let existingUser;
     try {
         existingUser = await Users.findOne({ email });
@@ -38,6 +42,7 @@ const signUp = async (req, res, next) => {
             .json({ message: "User already exists. Login instead." });
     }
 
+    // Hashes the password
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new Users({
         name, 
@@ -46,6 +51,7 @@ const signUp = async (req, res, next) => {
         posts: [],
     });
 
+    // Saves the user to the db
     try {
         await user.save();
     } catch (error) {
@@ -62,6 +68,7 @@ const signIn = async (req, res, next) => {
 
     let existingUser;
 
+    // Checks for existing user
     try {
         existingUser = await Users.findOne({ email });
     } catch (error) {
@@ -72,6 +79,7 @@ const signIn = async (req, res, next) => {
         return res.status(404).json({ message: "User not found. Register now!"});
     }
 
+    // Checks user password is correct
     const isPasswordCorrect = bcrypt.compareSync(password, existingUser.password);
     if (!isPasswordCorrect) {
         return res.status(401).json({ message: "Incorrect password. "});
@@ -82,11 +90,12 @@ const signIn = async (req, res, next) => {
         .json({ message: "Login successful!", user: existingUser });
 }
 
+// Gets the user by ID
 const getUserById = async (req, res, next) => {
     let user;
     const userId = req.query._id;
-    // const email = req.query.email;
 
+    // Finds the user's by id. 
     try {
         user = await Users.findById(userId).populate('posts');
         console.log("User in getUserByID in userAuth.js: ", user);
@@ -107,14 +116,13 @@ const getUserPosts = async (req, res, next) => {
     const userId = req.query._id;
 
     try {
+        // Finds the user by its id and corresponding 'posts' documents
         const user = await Users.findById(userId).populate('posts');
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        console.log('User variable in getUserPosts', user);
         const posts = user.posts;
-        console.log('Posts object in getUserPost', posts);
 
         await addPost(req, res, user);
 

@@ -26,6 +26,7 @@ app.use('/api/post', postRouter);
 const mongoURI = process.env.MongoDB_URI;
 const mongoLocalHost = process.env.MongoDB_localhost; // For testing
 
+// Connect to mongoDB 
 mongoose.connect(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -33,6 +34,7 @@ mongoose.connect(mongoURI, {
     .then(() => console.log('Connected to database'))
     .catch(console.error);
 
+// Listen to backend port
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`Server started on port ${port}`));
 

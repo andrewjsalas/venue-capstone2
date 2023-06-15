@@ -30,6 +30,7 @@ const postSchema = new Schema({
     }
 });
 
+// Sorts the posts by newest first to oldest
 postSchema.index({ createdAt: -1 });
 
 module.exports = mongoose.model("posts", postSchema);

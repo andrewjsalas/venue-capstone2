@@ -46,12 +46,13 @@ const Auth = () => {
         }
     }
 
+    // Submit user information
     const handleSubmit = (event) => {
         event.preventDefault();
 
+        // Authenticates user
         const handleAuthentication = (data) => {
             localStorage.setItem("userId", data.user._id);
-            // localStorage.setItem('userName', data.user.name);
             dispatch(authActions.signin(data.user));
             navigate('/');
             console.log("handleSubmit Auth.js: ", data);
@@ -62,7 +63,6 @@ const Auth = () => {
         }
 
         const request = isSignup ? sendRequest("signup") : sendRequest();
-
         request
             .then(handleAuthentication)
             .catch(handleError);

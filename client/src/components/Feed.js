@@ -37,6 +37,8 @@ function Feed() {
             <Card.Body>
               <div className='d-flex align-items-center'>
                 <Card.Subtitle className='d-flex font-weight-normal'>{post.name}</Card.Subtitle>
+                
+                {/* Displays post date */}
                 <small className='text-muted ml-2'>
                   - Posted:{' '}
                   {new Date(post.createdAt).toLocaleDateString('en-US', {
@@ -45,6 +47,7 @@ function Feed() {
                     year: 'numeric'
                   })}
                 </small>
+
               </div>
               <Card.Title className='mt-2'>{post.title}</Card.Title>
               <Card.Text className='mt-3'>{post.body}</Card.Text>

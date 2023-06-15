@@ -29,6 +29,7 @@ function NavBar() {
           />
         </Navbar.Brand>
 
+        {/* Only displays nav links if user is logged in */}
         {isLoggedIn && (
           <Nav className="ms-auto">
             <Nav.Link
@@ -49,6 +50,7 @@ function NavBar() {
             </Nav.Link>
           </Nav>
         )}
+
         <Nav className="ms-auto">
           {!isLoggedIn && (
             <>

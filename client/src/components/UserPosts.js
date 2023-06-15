@@ -19,6 +19,8 @@ function UserPosts() {
     try {
       const res = await axios.get(`${API_URL}/api/user/myposts?_id=${id}`);
       const { posts } = res.data.user;
+      
+      // Sorts the posts from newest to oldest
       const sortedPosts = [...posts].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setUserPosts(sortedPosts);
     } catch (error) {
@@ -39,7 +41,7 @@ function UserPosts() {
     }))
   }
 
-  // Cancel post edit without saving any changes.
+  // Cancel post edit without saving any form changes.
   const handleCancelEdit = () => {
     setEditPostId(null);
   };

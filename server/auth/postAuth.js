@@ -4,9 +4,10 @@ const Users = require('../models/Users');
 const { Types: {ObjectId} } = require('mongoose');
 
 
-// Get all posts
+// Get All Posts
 const getAllPosts = async (req, res, next) => {
     try {
+        // Grabs all the posts in the 'posts' mongodb collection and their corresponding 'user'. 
         const posts = await Posts.find({}).populate("user");
         
         if (!posts) {
@@ -20,20 +21,20 @@ const getAllPosts = async (req, res, next) => {
     }
 };
 
-// Add a post
+// Add A Post
 const addPost = async (req, res, next) => {
     try {
         const { title, body, user, name } = req.body;
-        console.log("User in addPost before create: ", user);
-        console.log("The users name: ", name);
-
         let existingUser;
+
+        // Finds the user by ID
         try {
             existingUser = await Users.findById(user);
         } catch (error) {
             return console.log('No user found in addPost', error);
         }
 
+        // Creates a post document
         const post = await Posts.create({
             title,
             body,
@@ -41,9 +42,7 @@ const addPost = async (req, res, next) => {
             name: existingUser.name,
         });
 
-        // console.log("Post created in addPost: ", post);
-        // console.log("User ID before update: ", user._id);
-
+        // When a user submits a post, this pushes the post to the users 'posts' array on the backend and updates it. 
         const updatedUser = await Users.findByIdAndUpdate(
             user,
             {
@@ -54,21 +53,21 @@ const addPost = async (req, res, next) => {
             { new: true }
         ).populate('posts');
 
-        console.log("Created post: ", post);
         console.log("updatedUser: ", updatedUser);
 
         return res.status(201).json({ success: true, post });
     } catch (error) {
-        console.log("Error is in addPost.js, postAuth.js", error);
         return res.status(500).json({ message: "Server error in addPost.js",error });
     }
 }
 
-
+// Update A Post
 const updatePost = async (req, res, next) => {
     const { title, body } = req.body;
     const postId = req.params.id;
     let post;
+
+    // Fetches the post ID and updates the title and body document field 
     try {
         post = await Posts.findByIdAndUpdate(
             postId, 
@@ -90,6 +89,7 @@ const updatePost = async (req, res, next) => {
     return res.status(200).json({ post });
 };
 
+// Get Post By ID
 const getPostById = async (req, res, next) => {
     const id = req.params._id;
 
@@ -99,6 +99,7 @@ const getPostById = async (req, res, next) => {
 
     let post;
 
+    // Fetches the post ID
     try {
         post = await Posts.findById(id);
     } catch (error) {
@@ -112,19 +113,19 @@ const getPostById = async (req, res, next) => {
     return res.status(200).json({ post });
 };
 
+// Delete A Post
 const deletePost = async (req, res, next) => {
     let post;
 
     try {
-        console.log("postId check: ", req.params.postId);
+        // Fetches the post ID 
         post = await Posts.findByIdAndRemove(req.params.postId).populate('user');
 
-        console.log("Post before conditional checK: ", post);
         if (!post) {
             return res.status(500).json({ message: "Unable to delete post." })
         }
-        console.log("Post in deletePost after conditional check: ", post);
 
+        // Deletes the post
         await post.user.posts.pull(post);
         await post.user.save();
     } catch (error) {

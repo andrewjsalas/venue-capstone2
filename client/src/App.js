@@ -16,12 +16,14 @@ function App() {
   const isLoggedIn = useSelector((state) => state.isLoggedIn); 
   const location = useLocation();
 
+  // Check if a user is logged in on component mount
   useEffect(() => {
     if (localStorage.getItem("userId")) {
       dispatch(authActions.signin());
     }
   }, [dispatch]);
 
+    // Check if user is logged in and redirect if not
   useEffect(() => {
     if (!isLoggedIn && location.pathname !== '/') {
       // Redirect to the home page if not logged in
